@@ -167,6 +167,25 @@ def test_the_verifier_never_raises(task, arguments_value, output_value) -> None:
     assert result["valid"] is False and result["message"].startswith("verifier-error")
 
 
+@pytest.mark.parametrize("task", ["sfc-route", "", None, 7])
+def test_an_unknown_task_id_is_a_verdict_not_a_raise(task) -> None:
+    good = build_output(GENEVA, SfcOutput)
+    result = verifier.verify_task(task, arguments("geneva-licensing-hearing"), good, reference("geneva-licensing-hearing"), ".")
+    assert result["valid"] is False and result["score"] == 0.0
+    assert result["message"].startswith("verifier-error: unknown task")
+    json.dumps(result)
+
+
+@pytest.mark.parametrize("tool", ["get_booking", "", None, 7])
+def test_an_unknown_tool_id_is_a_verdict_not_a_raise(tool) -> None:
+    for result in (
+        verifier.verify_input(tool, arguments("geneva-licensing-hearing")),
+        verifier.verify_output(tool, arguments("geneva-licensing-hearing"), reference("geneva-licensing-hearing"), "."),
+    ):
+        assert result["valid"] is False and result["message"].startswith("verifier-error: unknown tool")
+        json.dumps(result)
+
+
 @pytest.mark.parametrize("scenario", SCENARIOS)
 def test_verdicts_are_deterministic_plain_json(scenario: str) -> None:
     broken = {**case(scenario)["expected"], **case(scenario)["broken"][0]["change"]}

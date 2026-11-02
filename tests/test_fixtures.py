@@ -57,6 +57,16 @@ def test_the_handbook_is_the_task_instructions(task: str) -> None:
     assert len(handbook.split()) <= 1500
 
 
+def test_both_tasks_run_on_the_agent_runner() -> None:
+    # sfc-audit was switched from decide after its final question batch was cut off at the 2,048-token reply
+    # cap in two paid runs (san-juan-outreach, temperature 0); both step plans say "submit by step 5".
+    manifest = (ROOT / "nanoagent.yaml").read_text(encoding="utf-8")
+    assert manifest.count("    runner: agent") == 2 and "runner: decide" not in manifest
+    handbook = (DATA / "handbook.md").read_text(encoding="utf-8")
+    assert "## Step plan: sfc-audit (submit by step 5)" in handbook
+    assert "## Step plan: sfc-book (submit by step 5)" in handbook
+
+
 def test_the_handbook_pins_its_source_and_states_the_toy_rules() -> None:
     handbook = (DATA / "handbook.md").read_text(encoding="utf-8")
     for needle in (

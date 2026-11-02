@@ -46,10 +46,12 @@ The following parts of the source are deliberately ignored:
 - receipts, currency conversion and expense reports;
 - the return flight.
 
-## Step plan: sfc-audit
+## Step plan: sfc-audit (submit by step 5)
+
+You have 6 steps. Each tool call costs one, and the last step may not call tools.
 
 1. Call get_audit_case with the task's scenario.
-2. Submit. Apply C2–C9 to the chosen booking, using same_day_itineraries for the lowest logical fare: in_policy, required_preauthorizations, itinerary_id null, reimbursable_checked_bags.
+2. Apply C2–C9 to the chosen booking as it was booked (chosen.cabin and chosen.fare_cents), using same_day_itineraries for the lowest logical fare. Call submit with in_policy, required_preauthorizations (each code once), itinerary_id null, and reimbursable_checked_bags (C9).
 
 ## Step plan: sfc-book (submit by step 5)
 

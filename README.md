@@ -60,22 +60,16 @@ A `nanoagent.plugin/v0001` plugin for **pre-approval routing**, with two tasks. 
 
 | Task | Does | Runner |
 |---|---|---|
-| `sfc-audit` | Audits an air booking and routes every pre-authorization the toy handbook requires | `decide`, with `get_audit_case`; reference `compute_audit` |
+| `sfc-audit` | Audits an air booking and routes every pre-authorization the toy handbook requires | `agent`, with `get_audit_case`; reference `compute_audit` |
 | `sfc-book` | Books any flight that needs no pre-authorization | `agent`, with `get_trip_request` and `search_itineraries`; reference `compute_valid_set` |
 
 ### Why these runners
 
-**`sfc-audit` uses `decide`.** Every output field can be filled by choice:
-- `in_policy` is a bool;
-- the codes are a single multi-select `list[Enum]`;
-- `itinerary_id` is chosen as null;
-- the bag allowance is an Enum.
+**Both tasks use `agent`.** `sfc-audit` takes 2 steps: `get_audit_case`, then `submit`. `sfc-book` takes 3: `get_trip_request`, then `search_itineraries`, then `submit`.
 
-The bag allowance is deliberately an Enum, not an `int`. Under `decide`, an `int` field may be copied from any int in the state, such as a fare or a connection count.
+`sfc-audit` was first built on `decide`: every output field can be filled by choice (`in_policy` is a bool, the codes are one multi-select `list[Enum]`, `itinerary_id` is chosen as null, the bag allowance is an Enum), and NanoAgent's `dataflow.fill` counts only 4 model requests per audit. In paid runs with DeepSeek V4 Flash, though, the model's reply to the final question batch is mostly hidden reasoning that counts against the 2,048-token reply cap: 11 of 12 audits passed, with up to 2,017 completion tokens, and `san-juan-outreach` was cut off at the cap twice (temperature 0, before and during the audit), leaving no verdict. The T3 plugin saw the same failure. So `sfc-audit` was switched to `agent`, with the contract and the verifier unchanged (BUILDER_BRIEF: "`decide` runner: avoid it").
 
-NanoAgent's own `dataflow.fill` counts **4 model requests** per audit, against the 6-step cap: next, the scenario choice, next, then the output in one batch.
-
-**`sfc-book` uses `agent`.** It takes 3 steps: `get_trip_request`, then `search_itineraries`, then `submit`.
+The bag allowance stays an Enum, not an `int`, so that an agent cannot answer with a count it copied from the state, such as `checked_bags_requested`; the verifier would accept only `zero` or `one` anyway.
 
 ## Environment
 
@@ -136,7 +130,7 @@ preauths-correct: missing COST_OVER_DOMESTIC_750 (economy fare 82500 cents ($825
 Decisions the verifier enforces:
 
 - **Consistency:** `in_policy == (required_preauthorizations == [])`. Checked bags never affect `in_policy`, because excess bags are the traveler's cost and need no sign-off.
-- **Codes:** compared as a **set**, with repeats refused. A model may list them in any order; `decide` fills them in declaration order.
+- **Codes:** compared as a **set**, with repeats refused. A model may list them in any order.
 - **Booking:** any member of the valid set is accepted.
 - **Scoring:** 1.0 when valid, 0.0 otherwise.
 - **Shape errors** never reach the verifier, because NanoAgent's `build_output` refuses them first. These include a wrong type, an unknown Enum value, a missing or extra field, and `null` for a required field.

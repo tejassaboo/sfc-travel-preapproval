@@ -87,17 +87,17 @@ class BookInput(Output):
 @dataclass
 class Traveler(Output):
     traveler_id: Annotated[str, "Traveler id, e.g. P204"]
-    name: Annotated[str, "Full name"]
-    department: Annotated[str, "Role and (fictional) member project"]
-    base_point: Annotated[str, "Home city"]
+    name: Annotated[str, "The traveler's full name (flavour only)"]
+    department: Annotated[str, "Role and (fictional) member project (flavour only)"]
+    base_point: Annotated[str, "Home city and state or country (flavour only)"]
 
 
 @dataclass
 class Airport(Output):
-    code: Annotated[str, "IATA code"]
-    city: Annotated[str, "City"]
-    country: Annotated[str, "ISO country code"]
-    us_50_states_dc: Annotated[bool, "In one of the 50 US states or DC (Puerto Rico and Canada are not)"]
+    code: Annotated[str, "Three-letter IATA airport code, e.g. SJU"]
+    city: Annotated[str, "The city the airport serves (flavour only)"]
+    country: Annotated[str, "ISO 3166-1 alpha-2 country code, e.g. US or PR; C2 reads us_50_states_dc, not this"]
+    us_50_states_dc: Annotated[bool, "In one of the 50 US states or DC (Puerto Rico and Canada are not); C2 reads this"]
 
 
 @dataclass
@@ -124,7 +124,7 @@ class AuditCaseOutput(Output):
     request_text: Annotated[str, "The traveler's words; they may claim things that are not so"]
     booking_date: Annotated[str, "The day the ticket is bought, YYYY-MM-DD"]
     departure_date: Annotated[str, "Outbound departure date, YYYY-MM-DD, origin local"]
-    traveler: Annotated[Traveler, "Who travels"]
+    traveler: Annotated[Traveler, "The traveler (flavour only)"]
     origin: Annotated[Airport, "Where the trip starts"]
     destination: Annotated[Airport, "Where the trip goes"]
     chosen: Annotated[ChosenBooking, "The booking under audit"]
@@ -140,7 +140,7 @@ class TripRequestOutput(Output):
     request_text: Annotated[str, "The traveler's words; they may ask for things policy forbids"]
     booking_date: Annotated[str, "The day the ticket is bought, YYYY-MM-DD"]
     departure_date: Annotated[str, "Outbound departure date, YYYY-MM-DD, origin local"]
-    traveler: Annotated[Traveler, "Who travels"]
+    traveler: Annotated[Traveler, "The traveler (flavour only)"]
     origin: Annotated[Airport, "Where the trip starts"]
     destination: Annotated[Airport, "Where the trip goes"]
     requested_cabin: Annotated[Cabin, "Cabin the traveler asked for"]
@@ -176,7 +176,7 @@ class SfcValidSetOutput(Output):
     """The sfc-book answer key: every itinerary a correct answer may book."""
 
     valid_itinerary_ids: Annotated[list[str], "Every in-policy itinerary, sorted"]
-    lowest_logical_fare_cents: Annotated[int, "Lowest economy fare among same-day itineraries with at most 1 connection"]
+    lowest_logical_fare_cents: Annotated[int, "Lowest economy fare among same-day itineraries with at most 1 connection, USD cents"]
     reimbursable_checked_bags: Annotated[BagAllowance, "zero when no bag is checked, else one"]
     rejected: Annotated[dict[str, list[SfcPreauth]], "Each other same-day itinerary and what its economy fare needs"]
 

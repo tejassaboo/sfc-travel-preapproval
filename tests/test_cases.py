@@ -19,7 +19,7 @@ IMPLEMENTATIONS = {
     Tool.GET_TRIP_REQUEST: get_trip_request,
     Tool.SEARCH_ITINERARIES: search_itineraries,
 }
-MAX_TOOL_CALLS = {"sfc-audit": 1, "sfc-book": 4}  # sfc-audit's decide plan fits 4 requests; sfc-book submits by step 5
+MAX_TOOL_CALLS = {"sfc-audit": 4, "sfc-book": 4}  # both agent plans submit by step 5 (sfc-audit needs 1 call, sfc-book 2)
 
 
 def call(tool, arguments, *, hide_request_text=False):

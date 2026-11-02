@@ -7,6 +7,7 @@ import pytest
 from contract import BagAllowance, SfcPreauth
 from plugin.rules import PREAUTHS, bag_allowance, lowest_logical_fare, preauthorizations, valid_set
 from plugin.tools_dev.worldgen import itinerary, segment
+from plugin.world import days_between
 
 AIRPORTS = {
     "JFK": {"code": "JFK", "us_50_states_dc": True, "timezone": "America/New_York"},
@@ -134,6 +135,73 @@ def test_valid_set_holds_every_equally_valid_itinerary() -> None:
 def test_no_logical_fare_is_an_error_not_a_guess() -> None:
     with pytest.raises(ValueError, match="lowest logical fare"):
         lowest_logical_fare(world_of(("C", TWO_STOP, fares(20000))), scenario())
+
+
+@pytest.mark.parametrize(
+    ("booking", "departure", "days", "expected"),
+    [
+        ("2028-02-15", "2028-02-29", 14, []),  # a leap day counts: exactly 14
+        ("2028-02-16", "2028-02-29", 13, ["BOOKED_LT_14_DAYS"]),
+        ("2027-02-15", "2027-03-01", 14, []),  # no leap day in 2027
+        ("2027-12-20", "2028-01-03", 14, []),  # across the year boundary
+        ("2027-12-21", "2028-01-03", 13, ["BOOKED_LT_14_DAYS"]),
+        ("2028-01-01", "2028-12-31", 365, []),  # a leap year's last day is still 365 days ahead
+        ("2028-01-01", "2029-01-01", 366, ["BOOKED_GT_365_DAYS"]),
+        ("2027-03-01", "2028-02-29", 365, []),
+        ("2027-02-28", "2028-02-29", 366, ["BOOKED_GT_365_DAYS"]),
+    ],
+)
+def test_day_counting_across_months_years_and_leap_days(booking: str, departure: str, days: int, expected: list) -> None:
+    world = world_of(("A", [("JFK", "DEN", f"{departure}T08:00", 270)], fares(30000)))
+    facts = scenario(booking_date=booking, departure_date=departure)
+    assert days_between(booking, departure) == days
+    assert codes(world, facts) == expected
+
+
+@pytest.mark.parametrize("bad", ["2027-02-29", "2026-11-31", "2026-13-01", "26-11-02", "2026/11/02", ""])
+def test_a_non_calendar_date_is_an_error(bad: str) -> None:
+    with pytest.raises(ValueError):
+        days_between("2026-11-02", bad)
+
+
+def test_connection_cities_never_decide_domestic_or_international() -> None:
+    # JFK -> SJU -> DEN: both endpoints in the 50 states, so domestic although the connection is in Puerto Rico;
+    # ORD -> DEN -> SJU (via a domestic hub) is international because the destination is not.
+    via_sju = [("JFK", "SJU", "2026-12-09T06:00", 240), ("SJU", "DEN", "2026-12-09T11:30", 360)]
+    to_sju = [("JFK", "DEN", "2026-12-09T06:00", 270), ("DEN", "SJU", "2026-12-09T11:30", 330)]
+    world = world_of(("A", via_sju, fares(80000)), ("B", to_sju, fares(80000)))
+    assert codes(world, scenario()) == ["COST_OVER_DOMESTIC_750"]
+    assert codes(world, scenario(destination="SJU"), itinerary_id="B") == []
+    assert codes(world, scenario(destination="SJU"), itinerary_id="B") != codes(world, scenario(), itinerary_id="A")
+
+
+def test_the_cap_and_the_band_read_the_fare_of_the_booked_cabin() -> None:
+    # Economy 40000 is under every line; business 80000 on the same itinerary is over the domestic cap and
+    # 40000 over the lowest logical fare, which is always the lowest *economy* fare.
+    world = world_of(("A", NONSTOP, fares(40000, None, 80000)), ("B", ONE_STOP, fares(40000)))
+    assert lowest_logical_fare(world, scenario()) == 40000
+    assert codes(world, scenario()) == []
+    assert codes(world, scenario(), cabin="business") == ["COST_OVER_DOMESTIC_750", "ABOVE_LOW_FARE_BAND_200", "NON_ECONOMY_CABIN"]
+
+
+def test_the_lowest_logical_fare_is_taken_on_the_same_date_and_route_only() -> None:
+    # A cheaper fare the day before, or to another destination, never sets the band.
+    other_day = [("JFK", "DEN", "2026-12-08T08:00", 270)]
+    other_route = [("JFK", "ORD", "2026-12-09T08:00", 150)]
+    world = world_of(("A", NONSTOP, fares(60000)), ("B", other_day, fares(20000)), ("C", other_route, fares(20000)))
+    assert lowest_logical_fare(world, scenario()) == 60000
+    assert codes(world, scenario()) == []
+
+
+def test_two_equally_valid_itineraries_with_the_same_fare_are_both_valid() -> None:
+    world = world_of(("A", NONSTOP, fares(30000)), ("B", ONE_STOP, fares(30000)))
+    assert valid_set(world, scenario(checked_bags=0))["valid_itinerary_ids"] == ["A", "B"]
+
+
+def test_a_date_trigger_empties_the_valid_set_and_is_an_error_not_a_guess() -> None:
+    world = world_of(("A", NONSTOP, fares(30000)))
+    with pytest.raises(ValueError, match="no itinerary can be booked in policy"):
+        valid_set(world, scenario(booking_date="2026-12-01", checked_bags=1))
 
 
 def test_cross_policy_sanity_row_sfc() -> None:
