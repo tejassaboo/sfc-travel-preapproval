@@ -1,0 +1,56 @@
+[
+ {
+  "code": "AU",
+  "name": "Aurora Nordic",
+  "us_flag_carrier": false,
+  "codeshare_partners": []
+ },
+ {
+  "code": "BL",
+  "name": "Boreal Canada",
+  "us_flag_carrier": false,
+  "codeshare_partners": []
+ },
+ {
+  "code": "CQ",
+  "name": "Cascadia Air",
+  "us_flag_carrier": true,
+  "codeshare_partners": []
+ },
+ {
+  "code": "HB",
+  "name": "Harborline",
+  "us_flag_carrier": true,
+  "codeshare_partners": []
+ },
+ {
+  "code": "LK",
+  "name": "Lakeshore Express",
+  "us_flag_carrier": true,
+  "codeshare_partners": []
+ },
+ {
+  "code": "MX",
+  "name": "Meridian Atlantic",
+  "us_flag_carrier": false,
+  "codeshare_partners": []
+ },
+ {
+  "code": "NS",
+  "name": "Northstar Airways",
+  "us_flag_carrier": true,
+  "codeshare_partners": []
+ },
+ {
+  "code": "PC",
+  "name": "Pacific Crest",
+  "us_flag_carrier": false,
+  "codeshare_partners": []
+ },
+ {
+  "code": "SI",
+  "name": "Sol Iberica",
+  "us_flag_carrier": false,
+  "codeshare_partners": []
+ }
+]

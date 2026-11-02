@@ -1,0 +1,13 @@
+{
+ "scenario": "san-juan-outreach",
+ "request_text": "Tinderbox school outreach week in San Juan. Puerto Rico is part of the US, so I assume the domestic $750 rule applies and my $810 Harborline fare via Miami needs sign-off. Can you route it? One checked bag of workshop kits.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P212",
+ "origin": "ORD",
+ "destination": "SJU",
+ "departure_date": "2027-02-08",
+ "chosen_itinerary_id": "I863",
+ "chosen_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-audit"
+}

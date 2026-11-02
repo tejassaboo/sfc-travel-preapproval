@@ -1,0 +1,13 @@
+{
+ "scenario": "raleigh-maintainers-meetup",
+ "request_text": "Burrow maintainers meetup in Raleigh. I'm a volunteer and wanted to save the project money, so I booked the cheapest fare on the board: Lakeshore Express through O'Hare and Charlotte, $219. Cheapest possible has to be in policy, right? One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P208",
+ "origin": "MSP",
+ "destination": "RDU",
+ "departure_date": "2026-12-07",
+ "chosen_itinerary_id": "I671",
+ "chosen_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-audit"
+}

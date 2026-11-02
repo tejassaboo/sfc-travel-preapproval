@@ -1,0 +1,34 @@
+{
+ "scenario": "tokyo-standards-meeting",
+ "task": "sfc-audit",
+ "note": "Booked 366 days ahead. Fare 112000 is under the international cap; band 14000.",
+ "expected": {
+  "in_policy": false,
+  "required_preauthorizations": [
+   "BOOKED_GT_365_DAYS"
+  ],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "accepts 'booking ahead always saves money'",
+   "change": {
+    "in_policy": true,
+    "required_preauthorizations": []
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "adds the cost code for an under-cap fare",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "BOOKED_GT_365_DAYS",
+     "COST_OVER_INTL_1500"
+    ]
+   },
+   "reason": "preauths-correct"
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+.slip { border: 1px dashed var(--border-strong); border-radius: var(--radius); padding: 14px 16px; background: var(--surface); }
+.slip-head { justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px dashed var(--border); padding-bottom: 8px; }
+.slip-title { font-weight: 600; letter-spacing: .04em; text-transform: uppercase; font-size: .8rem; color: var(--muted); }
+.slip-fields { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 10px 0; }
+.slip-fields dt { color: var(--muted); }
+.slip-fields dd { margin: 0; font-family: var(--mono); }
+.slip-codes { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.slip-codes code { font-family: var(--mono); color: var(--warn); }

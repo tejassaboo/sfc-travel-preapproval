@@ -1,0 +1,12 @@
+{
+ "scenario": "athens-translation-sprint",
+ "request_text": "Translation sprint in Athens, departing May 12. Please book the Aurora nonstop: it's within $200 of the cheapest fare, so it's in policy, and I'd rather not connect. No checked bags.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P215",
+ "origin": "BOS",
+ "destination": "ATH",
+ "departure_date": "2027-05-12",
+ "requested_cabin": "economy",
+ "checked_bags": 0,
+ "task": "sfc-book"
+}

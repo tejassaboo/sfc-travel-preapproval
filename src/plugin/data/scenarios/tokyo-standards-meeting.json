@@ -1,0 +1,13 @@
+{
+ "scenario": "tokyo-standards-meeting",
+ "request_text": "The Unicode tooling working group meets in Tokyo on November 4 next year. Booking way ahead always saves money, so I grabbed the Pacific Crest nonstop today. One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P207",
+ "origin": "LAX",
+ "destination": "HND",
+ "departure_date": "2027-11-03",
+ "chosen_itinerary_id": "I521",
+ "chosen_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-audit"
+}

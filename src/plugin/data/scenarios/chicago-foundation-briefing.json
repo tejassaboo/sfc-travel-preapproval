@@ -1,0 +1,13 @@
+{
+ "scenario": "chicago-foundation-briefing",
+ "request_text": "Briefing a funder in Chicago on December 3. I took the 17:30 Harborline nonstop; the 7am flight means a 4am alarm. My colleague always takes this evening flight and it's only about $200 more than the early one, so it's within the band. No checked bags, carry-on only.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P205",
+ "origin": "AUS",
+ "destination": "ORD",
+ "departure_date": "2026-12-03",
+ "chosen_itinerary_id": "I929",
+ "chosen_cabin": "economy",
+ "checked_bags": 0,
+ "task": "sfc-audit"
+}

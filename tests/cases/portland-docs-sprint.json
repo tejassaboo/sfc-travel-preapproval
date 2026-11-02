@@ -1,0 +1,54 @@
+{
+ "scenario": "portland-docs-sprint",
+ "task": "sfc-audit",
+ "note": "At-limit sides of four boundaries at once: domestic fare exactly 75000, 14 days ahead, band exactly 20000 (75000 - 55000; the 2-connection 41000 never sets the lowest logical fare), 1 connection.",
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "takes the 3-stop 41000 fare as the lowest logical fare (band 34000)",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "ABOVE_LOW_FARE_BAND_200"
+    ]
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "treats exactly $750.00 as over the cap",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "COST_OVER_DOMESTIC_750"
+    ]
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "routes the booking without listing any code",
+   "change": {
+    "in_policy": false
+   },
+   "reason": "in-policy-matches-preauths"
+  },
+  {
+   "why": "names the audited itinerary",
+   "change": {
+    "itinerary_id": "I759"
+   },
+   "reason": "itinerary-null-for-audit"
+  },
+  {
+   "why": "pays no bag although one is checked",
+   "change": {
+    "reimbursable_checked_bags": "zero"
+   },
+   "reason": "bags-correct"
+  }
+ ]
+}

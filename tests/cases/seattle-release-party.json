@@ -1,0 +1,61 @@
+{
+ "scenario": "seattle-release-party",
+ "task": "sfc-book",
+ "note": "Only I730 (69800, 1 connection) is valid. The nonstop I525 (76500) is inside the band but over the $750 domestic cap; I908 is over both; I609 has 2 connections. Two bags requested, one reimbursable.",
+ "expected_valid_set": [
+  "I730"
+ ],
+ "expected_lowest_logical_fare_cents": 69800,
+ "expected_rejected": {
+  "I525": [
+   "COST_OVER_DOMESTIC_750"
+  ],
+  "I609": [
+   "TWO_PLUS_CONNECTIONS"
+  ],
+  "I908": [
+   "COST_OVER_DOMESTIC_750",
+   "ABOVE_LOW_FARE_BAND_200"
+  ]
+ },
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": "I730",
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "books the nonstop because it is 'within the band'",
+   "change": {
+    "itinerary_id": "I525"
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "books the cheapest fare with 2 connections",
+   "change": {
+    "itinerary_id": "I609"
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "pays no bag",
+   "change": {
+    "reimbursable_checked_bags": "zero"
+   },
+   "reason": "bags-correct"
+  },
+  {
+   "why": "lists a code twice",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "NON_ECONOMY_CABIN",
+     "NON_ECONOMY_CABIN"
+    ]
+   },
+   "reason": "preauths-unique"
+  }
+ ]
+}

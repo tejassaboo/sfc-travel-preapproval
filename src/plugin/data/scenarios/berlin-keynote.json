@@ -1,0 +1,13 @@
+{
+ "scenario": "berlin-keynote",
+ "request_text": "I'm giving the opening keynote at the Ferrolith compiler conference in Berlin next November and booked today, exactly a year out, to lock in the fare: economy via Frankfurt, $1,500.00 on the nose. Bringing two checked bags because the demo hardware travels with me.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P203",
+ "origin": "SFO",
+ "destination": "BER",
+ "departure_date": "2027-11-02",
+ "chosen_itinerary_id": "I798",
+ "chosen_cabin": "economy",
+ "checked_bags": 2,
+ "task": "sfc-audit"
+}

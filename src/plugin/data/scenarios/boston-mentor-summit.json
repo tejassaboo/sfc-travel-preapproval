@@ -1,0 +1,12 @@
+{
+ "scenario": "boston-mentor-summit",
+ "request_text": "Mentor summit in Boston on December 3; I fly out the 2nd. Just book whatever is cheapest, I truly don't care how many stops. One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P213",
+ "origin": "DEN",
+ "destination": "BOS",
+ "departure_date": "2026-12-02",
+ "requested_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-book"
+}

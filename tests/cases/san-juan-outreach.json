@@ -1,0 +1,23 @@
+{
+ "scenario": "san-juan-outreach",
+ "task": "sfc-audit",
+ "note": "San Juan (Puerto Rico) is outside the 50 states + DC: international, so 81000 is under the $1,500 cap; band 3500.",
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "applies the domestic cap to Puerto Rico",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "COST_OVER_DOMESTIC_750"
+    ]
+   },
+   "reason": "in-policy-correct"
+  }
+ ]
+}

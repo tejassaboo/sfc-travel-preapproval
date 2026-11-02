@@ -1,0 +1,34 @@
+{
+ "scenario": "montreal-accessibility-keynote",
+ "task": "sfc-audit",
+ "note": "Premium economy 48000 is inside the band (15000) and under the international cap (YUL is in Canada), but any non-economy cabin needs pre-authorization.",
+ "expected": {
+  "in_policy": false,
+  "required_preauthorizations": [
+   "NON_ECONOMY_CABIN"
+  ],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "accepts 'inside the $200 band'",
+   "change": {
+    "in_policy": true,
+    "required_preauthorizations": []
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "applies the domestic cap to Montreal",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "COST_OVER_DOMESTIC_750",
+     "NON_ECONOMY_CABIN"
+    ]
+   },
+   "reason": "preauths-correct"
+  }
+ ]
+}

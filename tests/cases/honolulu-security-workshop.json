@@ -1,0 +1,33 @@
+{
+ "scenario": "honolulu-security-workshop",
+ "task": "sfc-audit",
+ "note": "SFO and HNL are both in the 50 states: domestic, so 82500 is over the $750 cap.",
+ "expected": {
+  "in_policy": false,
+  "required_preauthorizations": [
+   "COST_OVER_DOMESTIC_750"
+  ],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "treats Hawaii as international",
+   "change": {
+    "in_policy": true,
+    "required_preauthorizations": []
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "routes it under the international code",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "COST_OVER_INTL_1500"
+    ]
+   },
+   "reason": "preauths-correct"
+  }
+ ]
+}

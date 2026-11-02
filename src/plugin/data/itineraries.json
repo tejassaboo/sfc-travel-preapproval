@@ -1,0 +1,938 @@
+[
+ {
+  "itinerary_id": "I140",
+  "segment_ids": [
+   "S025",
+   "S026"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   95
+  ],
+  "total_elapsed_minutes": 380,
+  "total_in_air_minutes": 285,
+  "longest_segment_minutes": 145,
+  "fares_cents": {
+   "economy": 38800,
+   "premium_economy": null,
+   "business": 112000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I158",
+  "segment_ids": [
+   "S058",
+   "S059"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   105
+  ],
+  "total_elapsed_minutes": 390,
+  "total_in_air_minutes": 285,
+  "longest_segment_minutes": 170,
+  "fares_cents": {
+   "economy": 51001,
+   "premium_economy": null,
+   "business": 158000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I232",
+  "segment_ids": [
+   "S023"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 165,
+  "total_in_air_minutes": 165,
+  "longest_segment_minutes": 165,
+  "fares_cents": {
+   "economy": 32000,
+   "premium_economy": null,
+   "business": 98000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I238",
+  "segment_ids": [
+   "S044",
+   "S045"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   120
+  ],
+  "total_elapsed_minutes": 665,
+  "total_in_air_minutes": 545,
+  "longest_segment_minutes": 470,
+  "fares_cents": {
+   "economy": 119500,
+   "premium_economy": 221000,
+   "business": 398000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I242",
+  "segment_ids": [
+   "S075"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 600,
+  "total_in_air_minutes": 600,
+  "longest_segment_minutes": 600,
+  "fares_cents": {
+   "economy": 150100,
+   "premium_economy": 251000,
+   "business": 560000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I256",
+  "segment_ids": [
+   "S073",
+   "S074"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   155
+  ],
+  "total_elapsed_minutes": 780,
+  "total_in_air_minutes": 625,
+  "longest_segment_minutes": 400,
+  "fares_cents": {
+   "economy": 149900,
+   "premium_economy": 246000,
+   "business": 535000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I257",
+  "segment_ids": [
+   "S046",
+   "S047",
+   "S048"
+  ],
+  "connections": 2,
+  "layover_minutes": [
+   135,
+   45
+  ],
+  "total_elapsed_minutes": 765,
+  "total_in_air_minutes": 585,
+  "longest_segment_minutes": 415,
+  "fares_cents": {
+   "economy": 99000,
+   "premium_economy": null,
+   "business": 365000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I260",
+  "segment_ids": [
+   "S065"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 430,
+  "total_in_air_minutes": 430,
+  "longest_segment_minutes": 430,
+  "fares_cents": {
+   "economy": 136000,
+   "premium_economy": 228000,
+   "business": 560000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I328",
+  "segment_ids": [
+   "S054"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 235,
+  "total_in_air_minutes": 235,
+  "longest_segment_minutes": 235,
+  "fares_cents": {
+   "economy": 31000,
+   "premium_economy": 52000,
+   "business": 142000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I399",
+  "segment_ids": [
+   "S064"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 435,
+  "total_in_air_minutes": 435,
+  "longest_segment_minutes": 435,
+  "fares_cents": {
+   "economy": 118000,
+   "premium_economy": 212000,
+   "business": 545000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I425",
+  "segment_ids": [
+   "S038"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 150,
+  "total_in_air_minutes": 150,
+  "longest_segment_minutes": 150,
+  "fares_cents": {
+   "economy": 35600,
+   "premium_economy": null,
+   "business": 104000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I461",
+  "segment_ids": [
+   "S015"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 655,
+  "total_in_air_minutes": 655,
+  "longest_segment_minutes": 655,
+  "fares_cents": {
+   "economy": 158000,
+   "premium_economy": 262000,
+   "business": 640000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I485",
+  "segment_ids": [
+   "S049"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 330,
+  "total_in_air_minutes": 330,
+  "longest_segment_minutes": 330,
+  "fares_cents": {
+   "economy": 82500,
+   "premium_economy": 129000,
+   "business": 196000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I500",
+  "segment_ids": [
+   "S001"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 385,
+  "total_in_air_minutes": 385,
+  "longest_segment_minutes": 385,
+  "fares_cents": {
+   "economy": 55000,
+   "premium_economy": 98000,
+   "business": 214000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I507",
+  "segment_ids": [
+   "S031",
+   "S032"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   165
+  ],
+  "total_elapsed_minutes": 970,
+  "total_in_air_minutes": 805,
+  "longest_segment_minutes": 640,
+  "fares_cents": {
+   "economy": 98000,
+   "premium_economy": 171000,
+   "business": 455000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I521",
+  "segment_ids": [
+   "S030"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 705,
+  "total_in_air_minutes": 705,
+  "longest_segment_minutes": 705,
+  "fares_cents": {
+   "economy": 112000,
+   "premium_economy": 186000,
+   "business": 498000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I525",
+  "segment_ids": [
+   "S081"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 330,
+  "total_in_air_minutes": 330,
+  "longest_segment_minutes": 330,
+  "fares_cents": {
+   "economy": 76500,
+   "premium_economy": 105000,
+   "business": 178000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I548",
+  "segment_ids": [
+   "S050"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 335,
+  "total_in_air_minutes": 335,
+  "longest_segment_minutes": 335,
+  "fares_cents": {
+   "economy": 79000,
+   "premium_economy": 124000,
+   "business": 188000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I552",
+  "segment_ids": [
+   "S027"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 245,
+  "total_in_air_minutes": 245,
+  "longest_segment_minutes": 245,
+  "fares_cents": {
+   "economy": 38900,
+   "premium_economy": 61000,
+   "business": 129000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I574",
+  "segment_ids": [
+   "S068",
+   "S069",
+   "S070"
+  ],
+  "connections": 2,
+  "layover_minutes": [
+   340,
+   145
+  ],
+  "total_elapsed_minutes": 1055,
+  "total_in_air_minutes": 570,
+  "longest_segment_minutes": 415,
+  "fares_cents": {
+   "economy": 97000,
+   "premium_economy": null,
+   "business": 470000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I576",
+  "segment_ids": [
+   "S036",
+   "S037"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   75
+  ],
+  "total_elapsed_minutes": 305,
+  "total_in_air_minutes": 230,
+  "longest_segment_minutes": 155,
+  "fares_cents": {
+   "economy": 28400,
+   "premium_economy": null,
+   "business": 96000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I577",
+  "segment_ids": [
+   "S055"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 230,
+  "total_in_air_minutes": 230,
+  "longest_segment_minutes": 230,
+  "fares_cents": {
+   "economy": 45500,
+   "premium_economy": 68000,
+   "business": 151000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I603",
+  "segment_ids": [
+   "S040",
+   "S041"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   135
+  ],
+  "total_elapsed_minutes": 305,
+  "total_in_air_minutes": 170,
+  "longest_segment_minutes": 95,
+  "fares_cents": {
+   "economy": 36500,
+   "premium_economy": 52000,
+   "business": 99000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I609",
+  "segment_ids": [
+   "S084",
+   "S085",
+   "S086"
+  ],
+  "connections": 2,
+  "layover_minutes": [
+   55,
+   95
+  ],
+  "total_elapsed_minutes": 620,
+  "total_in_air_minutes": 470,
+  "longest_segment_minutes": 230,
+  "fares_cents": {
+   "economy": 54000,
+   "premium_economy": null,
+   "business": 140000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I617",
+  "segment_ids": [
+   "S008",
+   "S009"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   95
+  ],
+  "total_elapsed_minutes": 415,
+  "total_in_air_minutes": 320,
+  "longest_segment_minutes": 165,
+  "fares_cents": {
+   "economy": 62000,
+   "premium_economy": null,
+   "business": 171000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I637",
+  "segment_ids": [
+   "S042",
+   "S043"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   95
+  ],
+  "total_elapsed_minutes": 635,
+  "total_in_air_minutes": 540,
+  "longest_segment_minutes": 485,
+  "fares_cents": {
+   "economy": 128000,
+   "premium_economy": 236000,
+   "business": 420000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I653",
+  "segment_ids": [
+   "S071",
+   "S072"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   190
+  ],
+  "total_elapsed_minutes": 815,
+  "total_in_air_minutes": 625,
+  "longest_segment_minutes": 390,
+  "fares_cents": {
+   "economy": 142000,
+   "premium_economy": 238000,
+   "business": 520000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I658",
+  "segment_ids": [
+   "S056",
+   "S057"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   100
+  ],
+  "total_elapsed_minutes": 375,
+  "total_in_air_minutes": 275,
+  "longest_segment_minutes": 145,
+  "fares_cents": {
+   "economy": 51000,
+   "premium_economy": null,
+   "business": 160000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I662",
+  "segment_ids": [
+   "S060",
+   "S061",
+   "S062"
+  ],
+  "connections": 2,
+  "layover_minutes": [
+   80,
+   75
+  ],
+  "total_elapsed_minutes": 550,
+  "total_in_air_minutes": 395,
+  "longest_segment_minutes": 145,
+  "fares_cents": {
+   "economy": 24500,
+   "premium_economy": null,
+   "business": 120000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I671",
+  "segment_ids": [
+   "S033",
+   "S034",
+   "S035"
+  ],
+  "connections": 2,
+  "layover_minutes": [
+   75,
+   85
+  ],
+  "total_elapsed_minutes": 425,
+  "total_in_air_minutes": 265,
+  "longest_segment_minutes": 120,
+  "fares_cents": {
+   "economy": 21900,
+   "premium_economy": null,
+   "business": 88000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I689",
+  "segment_ids": [
+   "S013",
+   "S014"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   150
+  ],
+  "total_elapsed_minutes": 885,
+  "total_in_air_minutes": 735,
+  "longest_segment_minutes": 620,
+  "fares_cents": {
+   "economy": 132500,
+   "premium_economy": 240000,
+   "business": 585000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I700",
+  "segment_ids": [
+   "S010"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 280,
+  "total_in_air_minutes": 280,
+  "longest_segment_minutes": 280,
+  "fares_cents": {
+   "economy": 69900,
+   "premium_economy": 104000,
+   "business": 182000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I729",
+  "segment_ids": [
+   "S028",
+   "S029"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   110
+  ],
+  "total_elapsed_minutes": 385,
+  "total_in_air_minutes": 275,
+  "longest_segment_minutes": 150,
+  "fares_cents": {
+   "economy": 33100,
+   "premium_economy": null,
+   "business": 118000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I730",
+  "segment_ids": [
+   "S079",
+   "S080"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   90
+  ],
+  "total_elapsed_minutes": 460,
+  "total_in_air_minutes": 370,
+  "longest_segment_minutes": 205,
+  "fares_cents": {
+   "economy": 69800,
+   "premium_economy": 98000,
+   "business": 165000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I743",
+  "segment_ids": [
+   "S018",
+   "S019"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   190
+  ],
+  "total_elapsed_minutes": 720,
+  "total_in_air_minutes": 530,
+  "longest_segment_minutes": 390,
+  "fares_cents": {
+   "economy": 141000,
+   "premium_economy": 229000,
+   "business": 498000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I748",
+  "segment_ids": [
+   "S066",
+   "S067"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   185
+  ],
+  "total_elapsed_minutes": 670,
+  "total_in_air_minutes": 485,
+  "longest_segment_minutes": 410,
+  "fares_cents": {
+   "economy": 141500,
+   "premium_economy": 235000,
+   "business": 575000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I749",
+  "segment_ids": [
+   "S063"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 235,
+  "total_in_air_minutes": 235,
+  "longest_segment_minutes": 235,
+  "fares_cents": {
+   "economy": 19900,
+   "premium_economy": 41000,
+   "business": 130000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I759",
+  "segment_ids": [
+   "S002",
+   "S003"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   100
+  ],
+  "total_elapsed_minutes": 540,
+  "total_in_air_minutes": 440,
+  "longest_segment_minutes": 285,
+  "fares_cents": {
+   "economy": 75000,
+   "premium_economy": 121000,
+   "business": 248000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I770",
+  "segment_ids": [
+   "S016",
+   "S017"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   440
+  ],
+  "total_elapsed_minutes": 970,
+  "total_in_air_minutes": 530,
+  "longest_segment_minutes": 400,
+  "fares_cents": {
+   "economy": 150001,
+   "premium_economy": 236000,
+   "business": 512000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I794",
+  "segment_ids": [
+   "S053"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 290,
+  "total_in_air_minutes": 290,
+  "longest_segment_minutes": 290,
+  "fares_cents": {
+   "economy": 77500,
+   "premium_economy": null,
+   "business": 205000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I798",
+  "segment_ids": [
+   "S011",
+   "S012"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   105
+  ],
+  "total_elapsed_minutes": 825,
+  "total_in_air_minutes": 720,
+  "longest_segment_minutes": 650,
+  "fares_cents": {
+   "economy": 150000,
+   "premium_economy": 255000,
+   "business": 610000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I863",
+  "segment_ids": [
+   "S051",
+   "S052"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   95
+  ],
+  "total_elapsed_minutes": 440,
+  "total_in_air_minutes": 345,
+  "longest_segment_minutes": 185,
+  "fares_cents": {
+   "economy": 81000,
+   "premium_economy": null,
+   "business": 214000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I894",
+  "segment_ids": [
+   "S039"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 80,
+  "total_in_air_minutes": 80,
+  "longest_segment_minutes": 80,
+  "fares_cents": {
+   "economy": 33000,
+   "premium_economy": 48000,
+   "business": 91000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I908",
+  "segment_ids": [
+   "S082",
+   "S083"
+  ],
+  "connections": 1,
+  "layover_minutes": [
+   95
+  ],
+  "total_elapsed_minutes": 490,
+  "total_in_air_minutes": 395,
+  "longest_segment_minutes": 270,
+  "fares_cents": {
+   "economy": 89900,
+   "premium_economy": null,
+   "business": 190000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I914",
+  "segment_ids": [
+   "S076",
+   "S077",
+   "S078"
+  ],
+  "connections": 2,
+  "layover_minutes": [
+   400,
+   310
+  ],
+  "total_elapsed_minutes": 1415,
+  "total_in_air_minutes": 705,
+  "longest_segment_minutes": 395,
+  "fares_cents": {
+   "economy": 121000,
+   "premium_economy": null,
+   "business": 480000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I926",
+  "segment_ids": [
+   "S007"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 275,
+  "total_in_air_minutes": 275,
+  "longest_segment_minutes": 275,
+  "fares_cents": {
+   "economy": 75001,
+   "premium_economy": 112000,
+   "business": 189000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I929",
+  "segment_ids": [
+   "S024"
+  ],
+  "connections": 0,
+  "layover_minutes": [],
+  "total_elapsed_minutes": 165,
+  "total_in_air_minutes": 165,
+  "longest_segment_minutes": 165,
+  "fares_cents": {
+   "economy": 52001,
+   "premium_economy": null,
+   "business": 121000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I930",
+  "segment_ids": [
+   "S020",
+   "S021",
+   "S022"
+  ],
+  "connections": 2,
+  "layover_minutes": [
+   95,
+   445
+  ],
+  "total_elapsed_minutes": 1160,
+  "total_in_air_minutes": 620,
+  "longest_segment_minutes": 395,
+  "fares_cents": {
+   "economy": 118000,
+   "premium_economy": null,
+   "business": 455000,
+   "first": null
+  }
+ },
+ {
+  "itinerary_id": "I968",
+  "segment_ids": [
+   "S004",
+   "S005",
+   "S006"
+  ],
+  "connections": 2,
+  "layover_minutes": [
+   60,
+   55
+  ],
+  "total_elapsed_minutes": 565,
+  "total_in_air_minutes": 450,
+  "longest_segment_minutes": 270,
+  "fares_cents": {
+   "economy": 41000,
+   "premium_economy": null,
+   "business": 165000,
+   "first": null
+  }
+ }
+]

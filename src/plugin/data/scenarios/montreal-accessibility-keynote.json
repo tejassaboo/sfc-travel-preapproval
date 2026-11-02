@@ -1,0 +1,13 @@
+{
+ "scenario": "montreal-accessibility-keynote",
+ "request_text": "Keynote on accessible desktops in Montreal. I booked premium economy on the Boreal nonstop: it's only $150 more than the cheapest economy seat, comfortably inside the $200 band, and the fare is nowhere near any cap. Add the lounge pass if you can. One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P209",
+ "origin": "BOS",
+ "destination": "YUL",
+ "departure_date": "2026-12-14",
+ "chosen_itinerary_id": "I894",
+ "chosen_cabin": "premium_economy",
+ "checked_bags": 1,
+ "task": "sfc-audit"
+}

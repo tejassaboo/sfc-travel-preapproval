@@ -1,0 +1,13 @@
+{
+ "scenario": "lisbon-community-summit",
+ "request_text": "Kestrel Linux community summit in Lisbon. I booked Harborline to Newark connecting to Sol Iberica: $1,500.01. The one-stop via Boston was a bit cheaper but leaves at lunchtime, and there's an even cheaper two-stop through Charlotte and JFK. One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P204",
+ "origin": "ORD",
+ "destination": "LIS",
+ "departure_date": "2027-03-10",
+ "chosen_itinerary_id": "I770",
+ "chosen_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-audit"
+}

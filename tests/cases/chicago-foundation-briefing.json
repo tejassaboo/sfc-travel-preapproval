@@ -1,0 +1,37 @@
+{
+ "scenario": "chicago-foundation-briefing",
+ "task": "sfc-audit",
+ "note": "Band 20001 (52001 - 32000): one cent over $200. No bags checked.",
+ "expected": {
+  "in_policy": false,
+  "required_preauthorizations": [
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "zero"
+ },
+ "broken": [
+  {
+   "why": "believes 'about $200 more' is within the band",
+   "change": {
+    "in_policy": true,
+    "required_preauthorizations": []
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "pays one bag although none is checked",
+   "change": {
+    "reimbursable_checked_bags": "one"
+   },
+   "reason": "bags-correct"
+  },
+  {
+   "why": "says out of policy but lists nothing",
+   "change": {
+    "required_preauthorizations": []
+   },
+   "reason": "in-policy-matches-preauths"
+  }
+ ]
+}

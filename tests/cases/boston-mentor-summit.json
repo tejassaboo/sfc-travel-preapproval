@@ -1,0 +1,69 @@
+{
+ "scenario": "boston-mentor-summit",
+ "task": "sfc-book",
+ "note": "Three valid: I328 (31000, the lowest logical fare), I577 (45500), I658 (51000, band exactly 20000). I158 (51001) is one cent over the band; I662 (24500) has 2 connections; I749 flies on Dec 1.",
+ "expected_valid_set": [
+  "I328",
+  "I577",
+  "I658"
+ ],
+ "expected_lowest_logical_fare_cents": 31000,
+ "expected_rejected": {
+  "I158": [
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "I662": [
+   "TWO_PLUS_CONNECTIONS"
+  ]
+ },
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": "I328",
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "books the cheapest fare with 2 connections, as asked",
+   "change": {
+    "itinerary_id": "I662"
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "books one cent over the band",
+   "change": {
+    "itinerary_id": "I158"
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "books the cheaper flight a day early",
+   "change": {
+    "itinerary_id": "I749"
+   },
+   "reason": "itinerary-serves-request"
+  },
+  {
+   "why": "books nothing",
+   "change": {
+    "itinerary_id": null
+   },
+   "reason": "itinerary-named"
+  },
+  {
+   "why": "invents an itinerary",
+   "change": {
+    "itinerary_id": "I999"
+   },
+   "reason": "itinerary-exists"
+  },
+  {
+   "why": "says out of policy but lists nothing",
+   "change": {
+    "in_policy": false
+   },
+   "reason": "in-policy-matches-preauths"
+  }
+ ]
+}

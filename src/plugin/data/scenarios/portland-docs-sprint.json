@@ -1,0 +1,13 @@
+{
+ "scenario": "portland-docs-sprint",
+ "request_text": "Booked for the Larkspur docs sprint in Portland. I took the 7:05 Harborline via O'Hare so I land before the kickoff dinner. Before anyone asks: yes, there is a $410 Northstar fare, but it stops in Denver AND Salt Lake, and I am not spending my whole day in airports. One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P201",
+ "origin": "BOS",
+ "destination": "PDX",
+ "departure_date": "2026-11-16",
+ "chosen_itinerary_id": "I759",
+ "chosen_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-audit"
+}

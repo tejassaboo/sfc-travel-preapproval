@@ -1,0 +1,13 @@
+_ > nanoagent.plugin.v0001.ProductConfig:
+tagline: "Route every air booking to the right sign-off, to the cent and to the day"
+summary: "An agent plays travel desk for a volunteer-run open-source nonprofit, under a toy handbook paraphrased from a 2012 travel policy: economy only, $750 domestic and $1,500 international approval lines, the 14-to-365-day booking window, the $200 low-fare band and no two-stop itineraries. It audits bookings that travelers already made and routes each one to every written pre-authorization it needs, or books a trip that needs none. A deterministic verifier checks every answer. Ask it to run a scenario. Audits: portland-docs-sprint, denver-board-retreat, berlin-keynote, lisbon-community-summit, chicago-foundation-briefing, austin-hackfest, tokyo-standards-meeting, raleigh-maintainers-meetup, montreal-accessibility-keynote, geneva-licensing-hearing, honolulu-security-workshop, san-juan-outreach. Bookings: boston-mentor-summit, paris-firmware-workshop, athens-translation-sprint, seattle-release-party."
+highlights:
+  - "Every boundary sits one cent or one day from the line: $750.00 vs $750.01, a band of exactly $200 vs $200.01, 14 vs 13 days, 365 vs 366"
+  - "Travelers argue their case: 'Hawaii is overseas', 'Puerto Rico is domestic', 'my colleague always flies business'. Only the structured facts count"
+  - "Booking accepts any of several equally valid flights; an audit routes an exact set of sign-offs. Both are checked by a pure-Python oracle, with no LLM judge"
+  - "Fully offline: fictional carriers, fixed fares and precomputed times"
+steps:
+  - "Name a scenario, for example honolulu-security-workshop or boston-mentor-summit"
+  - "The agent reads the booking or the trip request and the same-day flights"
+  - "It submits in_policy, the pre-authorizations needed, the itinerary (when booking) and the reimbursable bag"
+  - "The verifier explains its verdict with a reason code, the rule and the numbers"

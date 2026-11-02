@@ -1,0 +1,13 @@
+{
+ "scenario": "honolulu-security-workshop",
+ "request_text": "Ironbark crypto security workshop in Honolulu. Hawaii is five hours over the ocean, so the international $1,500 limit applies and my $825 Cascadia nonstop is well under it. One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P211",
+ "origin": "SFO",
+ "destination": "HNL",
+ "departure_date": "2027-01-18",
+ "chosen_itinerary_id": "I485",
+ "chosen_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-audit"
+}

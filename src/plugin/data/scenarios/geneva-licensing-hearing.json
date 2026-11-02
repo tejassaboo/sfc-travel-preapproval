@@ -1,0 +1,13 @@
+{
+ "scenario": "geneva-licensing-hearing",
+ "request_text": "Urgent: I'm testifying at the licensing hearing in Geneva on November 13, so I booked business via Zurich today. My colleague always flies business on this route, the lounge pass is included, and I need three checked bags for the exhibit binders. Please confirm this is all fine.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P210",
+ "origin": "IAD",
+ "destination": "GVA",
+ "departure_date": "2026-11-12",
+ "chosen_itinerary_id": "I637",
+ "chosen_cabin": "business",
+ "checked_bags": 3,
+ "task": "sfc-audit"
+}

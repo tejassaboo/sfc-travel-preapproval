@@ -1,0 +1,34 @@
+{
+ "scenario": "lisbon-community-summit",
+ "task": "sfc-audit",
+ "note": "International fare 150001: one cent over the $1,500 cap. Band 9001 against the 1-connection 141000; the 2-connection 118000 never sets the lowest logical fare.",
+ "expected": {
+  "in_policy": false,
+  "required_preauthorizations": [
+   "COST_OVER_INTL_1500"
+  ],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "waves the one-cent overage through",
+   "change": {
+    "in_policy": true,
+    "required_preauthorizations": []
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "also takes the 2-connection 118000 as the lowest logical fare",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "COST_OVER_INTL_1500",
+     "ABOVE_LOW_FARE_BAND_200"
+    ]
+   },
+   "reason": "preauths-correct"
+  }
+ ]
+}

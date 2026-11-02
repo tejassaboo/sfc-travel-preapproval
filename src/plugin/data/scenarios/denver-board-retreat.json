@@ -1,0 +1,13 @@
+{
+ "scenario": "denver-board-retreat",
+ "request_text": "Quillwork board retreat in Denver starts at 2pm on December 9, so I booked the 8:30 Northstar nonstop. It came to $750.01 with taxes, which is one cent over the line; surely nobody routes a penny for approval. Carry-on plus one checked bag for the printed board packets.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P202",
+ "origin": "JFK",
+ "destination": "DEN",
+ "departure_date": "2026-12-09",
+ "chosen_itinerary_id": "I926",
+ "chosen_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-audit"
+}

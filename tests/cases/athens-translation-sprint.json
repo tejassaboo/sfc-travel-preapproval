@@ -1,0 +1,40 @@
+{
+ "scenario": "athens-translation-sprint",
+ "task": "sfc-book",
+ "note": "Valid: I653 (142000) and I256 (149900). The nonstop I242 (150100) is inside the band but over the $1,500 international cap; I914 has 2 connections. No bags.",
+ "expected_valid_set": [
+  "I256",
+  "I653"
+ ],
+ "expected_lowest_logical_fare_cents": 142000,
+ "expected_rejected": {
+  "I242": [
+   "COST_OVER_INTL_1500"
+  ],
+  "I914": [
+   "TWO_PLUS_CONNECTIONS"
+  ]
+ },
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": "I653",
+  "reimbursable_checked_bags": "zero"
+ },
+ "broken": [
+  {
+   "why": "books the nonstop because it is 'within $200'",
+   "change": {
+    "itinerary_id": "I242"
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "pays a bag although none is checked",
+   "change": {
+    "reimbursable_checked_bags": "one"
+   },
+   "reason": "bags-correct"
+  }
+ ]
+}

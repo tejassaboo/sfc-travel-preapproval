@@ -1,0 +1,34 @@
+{
+ "scenario": "raleigh-maintainers-meetup",
+ "task": "sfc-audit",
+ "note": "The cheapest fare (21900) has 2 connections: unreasonable however cheap. It is below the lowest logical fare (28400), so the band is fine.",
+ "expected": {
+  "in_policy": false,
+  "required_preauthorizations": [
+   "TWO_PLUS_CONNECTIONS"
+  ],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "accepts 'cheapest possible has to be in policy'",
+   "change": {
+    "in_policy": true,
+    "required_preauthorizations": []
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "adds a band code to a fare below the lowest logical fare",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "ABOVE_LOW_FARE_BAND_200",
+     "TWO_PLUS_CONNECTIONS"
+    ]
+   },
+   "reason": "preauths-correct"
+  }
+ ]
+}

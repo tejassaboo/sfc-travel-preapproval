@@ -1,0 +1,242 @@
+[
+ {
+  "code": "AMS",
+  "city": "Amsterdam",
+  "country": "NL",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/Amsterdam"
+ },
+ {
+  "code": "ATH",
+  "city": "Athens",
+  "country": "GR",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/Athens"
+ },
+ {
+  "code": "ATL",
+  "city": "Atlanta",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/New_York"
+ },
+ {
+  "code": "AUS",
+  "city": "Austin",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Chicago"
+ },
+ {
+  "code": "BER",
+  "city": "Berlin",
+  "country": "DE",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/Berlin"
+ },
+ {
+  "code": "BOS",
+  "city": "Boston",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/New_York"
+ },
+ {
+  "code": "CDG",
+  "city": "Paris Charles de Gaulle",
+  "country": "FR",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/Paris"
+ },
+ {
+  "code": "CLT",
+  "city": "Charlotte",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/New_York"
+ },
+ {
+  "code": "DEN",
+  "city": "Denver",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Denver"
+ },
+ {
+  "code": "EWR",
+  "city": "Newark",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/New_York"
+ },
+ {
+  "code": "FRA",
+  "city": "Frankfurt",
+  "country": "DE",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/Berlin"
+ },
+ {
+  "code": "GVA",
+  "city": "Geneva",
+  "country": "CH",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/Zurich"
+ },
+ {
+  "code": "HND",
+  "city": "Tokyo Haneda",
+  "country": "JP",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Asia/Tokyo"
+ },
+ {
+  "code": "HNL",
+  "city": "Honolulu",
+  "country": "US",
+  "continental_us": false,
+  "us_50_states_dc": true,
+  "timezone": "Pacific/Honolulu"
+ },
+ {
+  "code": "IAD",
+  "city": "Washington Dulles",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/New_York"
+ },
+ {
+  "code": "JFK",
+  "city": "New York JFK",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/New_York"
+ },
+ {
+  "code": "LAX",
+  "city": "Los Angeles",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Los_Angeles"
+ },
+ {
+  "code": "LHR",
+  "city": "London Heathrow",
+  "country": "GB",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/London"
+ },
+ {
+  "code": "LIS",
+  "city": "Lisbon",
+  "country": "PT",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/Lisbon"
+ },
+ {
+  "code": "MIA",
+  "city": "Miami",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/New_York"
+ },
+ {
+  "code": "MSP",
+  "city": "Minneapolis",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Chicago"
+ },
+ {
+  "code": "ORD",
+  "city": "Chicago O'Hare",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Chicago"
+ },
+ {
+  "code": "PDX",
+  "city": "Portland",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Los_Angeles"
+ },
+ {
+  "code": "RDU",
+  "city": "Raleigh-Durham",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/New_York"
+ },
+ {
+  "code": "SEA",
+  "city": "Seattle",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Los_Angeles"
+ },
+ {
+  "code": "SFO",
+  "city": "San Francisco",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Los_Angeles"
+ },
+ {
+  "code": "SJU",
+  "city": "San Juan",
+  "country": "PR",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "America/Puerto_Rico"
+ },
+ {
+  "code": "SLC",
+  "city": "Salt Lake City",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Denver"
+ },
+ {
+  "code": "YUL",
+  "city": "Montreal",
+  "country": "CA",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "America/Toronto"
+ },
+ {
+  "code": "ZRH",
+  "city": "Zurich",
+  "country": "CH",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/Zurich"
+ }
+]

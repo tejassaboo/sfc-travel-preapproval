@@ -1,0 +1,40 @@
+{
+ "scenario": "berlin-keynote",
+ "task": "sfc-audit",
+ "note": "At-limit international: fare exactly 150000 and departure exactly 365 days ahead; band 17500. Two bags requested, one reimbursable.",
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "treats exactly 365 days as too early",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "BOOKED_GT_365_DAYS"
+    ]
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "treats exactly $1,500.00 as over the cap",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "COST_OVER_INTL_1500"
+    ]
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "pays no bag",
+   "change": {
+    "reimbursable_checked_bags": "zero"
+   },
+   "reason": "bags-correct"
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "scenario": "seattle-release-party",
+ "request_text": "Tidepool 4.0 release party in Seattle on February 15. Premium economy on the Cascadia nonstop would be lovely; the nonstop is within the $200 band anyway. Two checked bags (swag boxes).",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P216",
+ "origin": "ATL",
+ "destination": "SEA",
+ "departure_date": "2027-02-15",
+ "requested_cabin": "premium_economy",
+ "checked_bags": 2,
+ "task": "sfc-book"
+}

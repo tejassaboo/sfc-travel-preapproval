@@ -1,0 +1,50 @@
+{
+ "scenario": "paris-firmware-workshop",
+ "task": "sfc-book",
+ "note": "Business was requested; economy only. Valid: I399 (118000) and I260 (136000, band 18000). I748 (141500) is 23500 over; I574 has 2 connections.",
+ "expected_valid_set": [
+  "I260",
+  "I399"
+ ],
+ "expected_lowest_logical_fare_cents": 118000,
+ "expected_rejected": {
+  "I574": [
+   "TWO_PLUS_CONNECTIONS"
+  ],
+  "I748": [
+   "ABOVE_LOW_FARE_BAND_200"
+  ]
+ },
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": "I399",
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "books the 1-connection 141500 fare",
+   "change": {
+    "itinerary_id": "I748"
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "books the cheapest fare with 2 connections",
+   "change": {
+    "itinerary_id": "I574"
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "routes the business wish as a pre-authorization",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "NON_ECONOMY_CABIN"
+    ]
+   },
+   "reason": "in-policy-correct"
+  }
+ ]
+}

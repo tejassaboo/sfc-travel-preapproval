@@ -1,0 +1,12 @@
+{
+ "scenario": "paris-firmware-workshop",
+ "request_text": "Copperleaf bootloader workshop in Paris, leaving January 25. Business class please: my colleague always flies business on this route and it's an overnight flight. One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P214",
+ "origin": "JFK",
+ "destination": "CDG",
+ "departure_date": "2027-01-25",
+ "requested_cabin": "business",
+ "checked_bags": 1,
+ "task": "sfc-book"
+}

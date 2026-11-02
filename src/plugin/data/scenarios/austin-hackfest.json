@@ -1,0 +1,13 @@
+{
+ "scenario": "austin-hackfest",
+ "request_text": "The Tidepool CI hackfest in Austin got moved up a week, so I booked the Cascadia nonstop today for the 15th. That's basically two weeks out, and the fare is tiny. One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P206",
+ "origin": "SEA",
+ "destination": "AUS",
+ "departure_date": "2026-11-15",
+ "chosen_itinerary_id": "I552",
+ "chosen_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-audit"
+}

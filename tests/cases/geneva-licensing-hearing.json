@@ -1,0 +1,59 @@
+{
+ "scenario": "geneva-licensing-hearing",
+ "task": "sfc-audit",
+ "note": "Business 420000 booked 10 days ahead: over the international cap, under 14 days, 300500 over the lowest logical fare 119500, non-economy. 1 connection. Three bags requested, one reimbursable.",
+ "expected": {
+  "in_policy": false,
+  "required_preauthorizations": [
+   "COST_OVER_INTL_1500",
+   "BOOKED_LT_14_DAYS",
+   "ABOVE_LOW_FARE_BAND_200",
+   "NON_ECONOMY_CABIN"
+  ],
+  "itinerary_id": null,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "misses the band code",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "COST_OVER_INTL_1500",
+     "BOOKED_LT_14_DAYS",
+     "NON_ECONOMY_CABIN"
+    ]
+   },
+   "reason": "preauths-correct"
+  },
+  {
+   "why": "adds a connections code for a 1-connection itinerary",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "COST_OVER_INTL_1500",
+     "BOOKED_LT_14_DAYS",
+     "ABOVE_LOW_FARE_BAND_200",
+     "NON_ECONOMY_CABIN",
+     "TWO_PLUS_CONNECTIONS"
+    ]
+   },
+   "reason": "preauths-correct"
+  },
+  {
+   "why": "accepts the colleague's habit",
+   "change": {
+    "in_policy": true,
+    "required_preauthorizations": []
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "pays no bag",
+   "change": {
+    "reimbursable_checked_bags": "zero"
+   },
+   "reason": "bags-correct"
+  }
+ ]
+}
