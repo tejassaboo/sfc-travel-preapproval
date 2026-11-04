@@ -51,7 +51,7 @@ def why(world, scenario, itinerary, cabin, code):
             f"= {gap} cents, which {side} {LOW_FARE_BAND}"
         )
     if code == "NON_ECONOMY_CABIN":
-        return f"the booked cabin is {cabin}" + ("" if cabin != "economy" else ", which is economy")
+        return f"the booked cabin is {cabin}" + ("" if cabin != "economy" else ", so NON_ECONOMY_CABIN never applies")
     if code == "TWO_PLUS_CONNECTIONS":
         count = itinerary["connections"]
         side = ">" if count > MAX_LOGICAL_CONNECTIONS else "is not >"

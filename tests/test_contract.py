@@ -92,10 +92,10 @@ def test_dates_and_stamps_say_their_format_and_amounts_their_unit() -> None:
                 assert "cents" in description, f"{cls.__name__}.{name}"
             if typing.get_origin(base) in (typing.Union, type(int | None)) and type(None) in typing.get_args(base):
                 assert "null" in description, f"{cls.__name__}.{name} does not say what null means"
-            if typing.get_origin(base) is list:
+            inner = typing.get_args(base)[1] if typing.get_origin(base) is dict else base
+            if typing.get_origin(base) is list or typing.get_origin(inner) is list:  # a list, or a dict of lists
                 assert any(word in description for word in ("order", "sorted", "by itinerary_id", "flying")), (
                     f"{cls.__name__}.{name} does not say its ordering"
                 )
-            inner = typing.get_args(base)[1] if typing.get_origin(base) is dict else base
             if typing.get_origin(inner) in (typing.Union, type(int | None)) and type(None) in typing.get_args(inner):
                 assert "null" in description, f"{cls.__name__}.{name} does not say what null means"

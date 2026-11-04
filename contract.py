@@ -178,7 +178,9 @@ class SfcValidSetOutput(Output):
     valid_itinerary_ids: Annotated[list[str], "Every in-policy itinerary, sorted"]
     lowest_logical_fare_cents: Annotated[int, "Lowest economy fare among same-day itineraries with at most 1 connection, USD cents"]
     reimbursable_checked_bags: Annotated[BagAllowance, "zero when no bag is checked, else one"]
-    rejected: Annotated[dict[str, list[SfcPreauth]], "Each other same-day itinerary and what its economy fare needs"]
+    rejected: Annotated[
+        dict[str, list[SfcPreauth]], "Each other same-day itinerary, by itinerary_id, and the codes its economy fare needs, in C3-C7 order"
+    ]
 
 
 TOOLS = {

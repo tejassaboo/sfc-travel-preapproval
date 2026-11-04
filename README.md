@@ -199,4 +199,4 @@ uv run ruff check .
 uv run python -m plugin.tools_dev.generate   # rewrite the fixtures; the tests then check them
 ```
 
-To run a task, use `nanoagent plugin agent config=agent.yaml home=<run folder>`. Set `task` to `sfc-audit` or `sfc-book`, and set `arguments` to a JSON file such as `{"scenario": "geneva-licensing-hearing"}`. It needs `OPENROUTER_API_KEY` in the environment, not in this repo.
+To run a task with a model, write a NanoAgent run config (a `PluginOpenRouterAgentConfig`; this repo ships none) whose `plugin` is this folder, then run `nanoagent plugin agent config=<run.yaml> home=<run folder> -- task=sfc-audit arguments=<args.json>`, where the arguments file holds a scenario such as `{"scenario": "geneva-licensing-hearing"}`. Use `task=sfc-book` for a booking. It needs `OPENROUTER_API_KEY` in the environment, not in this repo.
