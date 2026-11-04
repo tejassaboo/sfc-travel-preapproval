@@ -187,7 +187,7 @@ Decisions the verifier enforces:
 ├── tests/           # verifier matrix, oracle cases, scripted agent, rules, tools, fixtures
 ├── ui/              # renderers.js: a pre-approval slip for SfcOutput; renderers.css
 ├── product/         # product.yaml and icon.svg
-└── verifier/        # deterministic verifier: audit.py, book.py, stages.py, explain.py, lookups.py, search.py, rules.py, world.py
+└── verifier/        # deterministic verifier: audit.py, book.py, stages.py, checks.py, explain.py, lookups.py, search.py, rules.py, world.py
 ```
 
 ## Develop and run

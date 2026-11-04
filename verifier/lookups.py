@@ -1,3 +1,5 @@
+"""The checks of the two lookup tools: their output must equal the view of the bundled fixtures."""
+
 from .checks import UNEXPECTED, compared, fixtures, plain, result
 from .rules import audit_case, trip_request
 

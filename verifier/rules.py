@@ -33,10 +33,6 @@ def is_domestic(world, scenario):
     return airports[scenario["origin"]]["us_50_states_dc"] and airports[scenario["destination"]]["us_50_states_dc"]
 
 
-def fare_cap(world, scenario):
-    return DOMESTIC_CAP if is_domestic(world, scenario) else INTERNATIONAL_CAP
-
-
 def advance_days(scenario):
     return days_between(scenario["booking_date"], scenario["departure_date"])
 

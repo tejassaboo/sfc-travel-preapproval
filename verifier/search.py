@@ -1,3 +1,5 @@
+"""The checks of search_itineraries: a well-formed query, and an output equal to the fixtures' own search."""
+
 from .checks import DATA, UNEXPECTED, compared, plain, result
 from .rules import option_view
 from .world import IATA, day_number, load_world, search
