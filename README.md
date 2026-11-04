@@ -1,5 +1,7 @@
 # SFC Travel Pre-Approval
 
+**No affiliation with Software Freedom Conservancy.**
+
 A `nanoagent.plugin/v0001` plugin for **pre-approval routing**, with two tasks. The agent audits an air booking that a traveler already made and routes it to every written pre-authorization it needs. Or it books a trip that needs none. The rules come from a toy handbook paraphrased from a **historical** nonprofit travel policy. A deterministic Python verifier, with no LLM, checks each answer against an oracle that it computes itself.
 
 **Source (citation only):** the Software Freedom Conservancy "Travel and Reimbursable Expense Policy", "Air Travel" section, pinned at commit [`ff3c541449db53100f3dfed6061280ef6e7e37bb`](https://f.sfconservancy.org/Conservancy/policies/src/commit/ff3c541449db53100f3dfed6061280ef6e7e37bb/Travel/Conservancy-Travel-Policy.tex) (2012-03-27). This is a **historical toy policy**. The current policy (commit `45135e3`, 2024-02-29) differs: its international limit is $1,800, though its own quick reference says $1,650, and it uses tiered fare budgets. The source repository is CC0, and its README asks reusers to remove the organization's name and contact details. So the handbook is our own paraphrase about "the organization", and the name appears only in this citation.
