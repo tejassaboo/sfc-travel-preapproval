@@ -74,12 +74,15 @@ def test_the_graded_output_has_no_free_text() -> None:
         "in_policy": bool,
         "required_preauthorizations": list[SfcPreauth],
         "itinerary_id": str | None,  # an inventory id, checked against the fixtures
+        "fare_cents": int,  # the magnitudes a desk reads off the slip (C10a), each checked against the oracle
+        "lowest_logical_fare_cents": int,
+        "advance_days": int,
         "reimbursable_checked_bags": BagAllowance,
     }
     assert [member.value for member in BagAllowance] == ["zero", "one"]
     assert len(SfcPreauth) == 7
     key = {name: base for name, base, _ in annotated_fields(SfcValidSetOutput)}
-    assert key["valid_itinerary_ids"] == list[str] and key["lowest_logical_fare_cents"] is int
+    assert key["valid_itinerary_ids"] == list[str] and key["lowest_logical_fare_cents"] is int and key["advance_days"] is int
     assert key["rejected"] == dict[str, list[SfcPreauth]]
 
 

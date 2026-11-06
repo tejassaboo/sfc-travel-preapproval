@@ -94,5 +94,29 @@
   "name": "Gideon Mbeki",
   "department": "Release manager, Tidepool CI",
   "base_point": "Atlanta, GA"
+ },
+ {
+  "traveler_id": "P217",
+  "name": "Ingrid Solberg",
+  "department": "Infrastructure volunteer, Burrow package index",
+  "base_point": "Boston, MA"
+ },
+ {
+  "traveler_id": "P218",
+  "name": "Niamh Byrne",
+  "department": "Packaging lead, Kestrel Linux",
+  "base_point": "Chicago, IL"
+ },
+ {
+  "traveler_id": "P219",
+  "name": "Marcus Oyelaran",
+  "department": "Kernel maintainer, Ferrolith compiler",
+  "base_point": "Chicago, IL"
+ },
+ {
+  "traveler_id": "P220",
+  "name": "Carmen Alvarado",
+  "department": "Archivist, Tinderbox education",
+  "base_point": "Atlanta, GA"
  }
 ]

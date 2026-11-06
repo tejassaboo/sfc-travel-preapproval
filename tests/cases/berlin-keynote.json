@@ -6,6 +6,9 @@
   "in_policy": true,
   "required_preauthorizations": [],
   "itinerary_id": null,
+  "fare_cents": 150000,
+  "lowest_logical_fare_cents": 132500,
+  "advance_days": 365,
   "reimbursable_checked_bags": "one"
  },
  "broken": [

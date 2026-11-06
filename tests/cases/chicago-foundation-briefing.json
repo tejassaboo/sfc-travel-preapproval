@@ -8,6 +8,9 @@
    "ABOVE_LOW_FARE_BAND_200"
   ],
   "itinerary_id": null,
+  "fare_cents": 52001,
+  "lowest_logical_fare_cents": 32000,
+  "advance_days": 31,
   "reimbursable_checked_bags": "zero"
  },
  "broken": [
@@ -32,6 +35,13 @@
     "required_preauthorizations": []
    },
    "reason": "in-policy-matches-preauths"
+  },
+  {
+   "why": "takes the one-stop 38800 as the lowest logical fare",
+   "change": {
+    "lowest_logical_fare_cents": 38800
+   },
+   "reason": "lowest-logical-fare-correct"
   }
  ]
 }

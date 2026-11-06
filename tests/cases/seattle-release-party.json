@@ -1,17 +1,25 @@
 {
  "scenario": "seattle-release-party",
  "task": "sfc-book",
- "note": "Only I730 (69800, 1 connection) is valid. The nonstop I525 (76500) is inside the band but over the $750 domestic cap; I908 is over both; I609 has 2 connections. Two bags requested, one reimbursable.",
+ "note": "Valid: I730 (69800, the lowest logical fare), I177 (72500) and I219 (74900), all one-stops. I502 (75001) is one cent over the $750 domestic cap; the nonstop I525 (76500) is inside the band but over the cap; I856 (89800) is over the cap with a band of exactly 20000; I908 is over both; I609 has 2 connections. Two bags requested, one reimbursable.",
  "expected_valid_set": [
+  "I177",
+  "I219",
   "I730"
  ],
  "expected_lowest_logical_fare_cents": 69800,
  "expected_rejected": {
+  "I502": [
+   "COST_OVER_DOMESTIC_750"
+  ],
   "I525": [
    "COST_OVER_DOMESTIC_750"
   ],
   "I609": [
    "TWO_PLUS_CONNECTIONS"
+  ],
+  "I856": [
+   "COST_OVER_DOMESTIC_750"
   ],
   "I908": [
    "COST_OVER_DOMESTIC_750",
@@ -22,6 +30,9 @@
   "in_policy": true,
   "required_preauthorizations": [],
   "itinerary_id": "I730",
+  "fare_cents": 69800,
+  "lowest_logical_fare_cents": 69800,
+  "advance_days": 105,
   "reimbursable_checked_bags": "one"
  },
  "broken": [
@@ -56,6 +67,14 @@
     ]
    },
    "reason": "preauths-unique"
+  },
+  {
+   "why": "takes the nonstop's lowest fare as the lowest logical fare",
+   "change": {
+    "lowest_logical_fare_cents": 76500
+   },
+   "reason": "lowest-logical-fare-correct"
   }
- ]
+ ],
+ "expected_advance_days": 105
 }

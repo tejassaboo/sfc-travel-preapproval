@@ -1,0 +1,12 @@
+{
+ "scenario": "ponce-archive-migration",
+ "request_text": "Migrating the Tinderbox archive servers in Ponce; I fly down on November 2 next year, booked today to lock the fare. Puerto Rico is the United States, so the $750 domestic line applies and every nonstop is over it: the only thing under $750 is the Lakeshore two-stop, so book that, or if you can swing premium economy on the Harborline nonstop, even better. Two checked bags of drive caddies.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P220",
+ "origin": "ATL",
+ "destination": "PSE",
+ "departure_date": "2027-11-02",
+ "requested_cabin": "premium_economy",
+ "checked_bags": 2,
+ "task": "sfc-book"
+}

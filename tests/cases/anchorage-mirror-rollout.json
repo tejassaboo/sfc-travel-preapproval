@@ -1,0 +1,78 @@
+{
+ "scenario": "anchorage-mirror-rollout",
+ "task": "sfc-book",
+ "note": "BOS and ANC are both in the 50 states, so the trip is domestic and the $750 cap applies, whatever the request says about Alaska. Lowest logical fare 58000 (I973, one stop via SEA). Valid: I973 (58000), I307 (61500), I373 (69900), I101 (74500) and I888 (the nonstop at exactly 75000). I584, the requested nonstop at 75001, is one cent over the cap; I482 (78000) is over the cap with a band of exactly 20000; I323 (78001) is over the cap and one cent over the band; I966 (49000) has 2 connections. 224 days ahead; one bag.",
+ "expected_valid_set": [
+  "I101",
+  "I307",
+  "I373",
+  "I888",
+  "I973"
+ ],
+ "expected_lowest_logical_fare_cents": 58000,
+ "expected_advance_days": 224,
+ "expected_rejected": {
+  "I323": [
+   "COST_OVER_DOMESTIC_750",
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "I482": [
+   "COST_OVER_DOMESTIC_750"
+  ],
+  "I584": [
+   "COST_OVER_DOMESTIC_750"
+  ],
+  "I966": [
+   "TWO_PLUS_CONNECTIONS"
+  ]
+ },
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": "I973",
+  "fare_cents": 58000,
+  "lowest_logical_fare_cents": 58000,
+  "advance_days": 224,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "books the requested $750.01 nonstop under the international cap",
+   "change": {
+    "itinerary_id": "I584",
+    "fare_cents": 75001
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "books the cheapest fare, which has 2 connections",
+   "change": {
+    "itinerary_id": "I966",
+    "fare_cents": 49000
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "books one cent over the band and the cap",
+   "change": {
+    "itinerary_id": "I323",
+    "fare_cents": 78001
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "reports the nonstop's fare for the one-stop it booked",
+   "change": {
+    "fare_cents": 75000
+   },
+   "reason": "fare-correct"
+  },
+  {
+   "why": "counts 223 days",
+   "change": {
+    "advance_days": 223
+   },
+   "reason": "advance-days-correct"
+  }
+ ]
+}

@@ -8,6 +8,9 @@
    "BOOKED_GT_365_DAYS"
   ],
   "itinerary_id": null,
+  "fare_cents": 112000,
+  "lowest_logical_fare_cents": 98000,
+  "advance_days": 366,
   "reimbursable_checked_bags": "one"
  },
  "broken": [
@@ -29,6 +32,13 @@
     ]
    },
    "reason": "preauths-correct"
+  },
+  {
+   "why": "counts 365 days",
+   "change": {
+    "advance_days": 365
+   },
+   "reason": "advance-days-correct"
   }
  ]
 }

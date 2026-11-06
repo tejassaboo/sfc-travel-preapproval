@@ -44,6 +44,10 @@ class BookScenario(Enum):
     PARIS_FIRMWARE_WORKSHOP = "paris-firmware-workshop"
     ATHENS_TRANSLATION_SPRINT = "athens-translation-sprint"
     SEATTLE_RELEASE_PARTY = "seattle-release-party"
+    ANCHORAGE_MIRROR_ROLLOUT = "anchorage-mirror-rollout"
+    DUBLIN_PACKAGING_SUMMIT = "dublin-packaging-summit"
+    PHOENIX_KERNEL_WORKSHOP = "phoenix-kernel-workshop"
+    PONCE_ARCHIVE_MIGRATION = "ponce-archive-migration"
 
 
 class Cabin(Enum):
@@ -168,6 +172,13 @@ class SfcOutput(Output):
         list[SfcPreauth], "Every written pre-authorization the booking needs, each once, any order; empty if none"
     ]
     itinerary_id: Annotated[str | None, "sfc-book: the booked itinerary; sfc-audit: null"]
+    fare_cents: Annotated[
+        int, "The airfare judged under C3 and C5, USD cents: sfc-audit the chosen fare in the booked cabin; sfc-book your itinerary's economy fare"
+    ]
+    lowest_logical_fare_cents: Annotated[
+        int, "C5: the lowest economy fare among same-day itineraries with at most 1 connection, USD cents"
+    ]
+    advance_days: Annotated[int, "C4: departure_date minus booking_date, in calendar days"]
     reimbursable_checked_bags: Annotated[BagAllowance, "zero when no bag is checked, else one"]
 
 
@@ -177,6 +188,7 @@ class SfcValidSetOutput(Output):
 
     valid_itinerary_ids: Annotated[list[str], "Every in-policy itinerary, sorted"]
     lowest_logical_fare_cents: Annotated[int, "Lowest economy fare among same-day itineraries with at most 1 connection, USD cents"]
+    advance_days: Annotated[int, "C4: departure_date minus booking_date, in calendar days"]
     reimbursable_checked_bags: Annotated[BagAllowance, "zero when no bag is checked, else one"]
     rejected: Annotated[
         dict[str, list[SfcPreauth]], "Each other same-day itinerary, by itinerary_id, and the codes its economy fare needs, in C3-C7 order"

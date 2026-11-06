@@ -8,6 +8,14 @@
   "timezone": "Europe/Amsterdam"
  },
  {
+  "code": "ANC",
+  "city": "Anchorage",
+  "country": "US",
+  "continental_us": false,
+  "us_50_states_dc": true,
+  "timezone": "America/Anchorage"
+ },
+ {
   "code": "ATH",
   "city": "Athens",
   "country": "GR",
@@ -70,6 +78,14 @@
   "continental_us": true,
   "us_50_states_dc": true,
   "timezone": "America/Denver"
+ },
+ {
+  "code": "DUB",
+  "city": "Dublin",
+  "country": "IE",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "Europe/Dublin"
  },
  {
   "code": "EWR",
@@ -182,6 +198,22 @@
   "continental_us": true,
   "us_50_states_dc": true,
   "timezone": "America/Los_Angeles"
+ },
+ {
+  "code": "PHX",
+  "city": "Phoenix",
+  "country": "US",
+  "continental_us": true,
+  "us_50_states_dc": true,
+  "timezone": "America/Phoenix"
+ },
+ {
+  "code": "PSE",
+  "city": "Ponce",
+  "country": "PR",
+  "continental_us": false,
+  "us_50_states_dc": false,
+  "timezone": "America/Puerto_Rico"
  },
  {
   "code": "RDU",

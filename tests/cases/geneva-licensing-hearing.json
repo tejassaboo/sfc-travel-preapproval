@@ -11,6 +11,9 @@
    "NON_ECONOMY_CABIN"
   ],
   "itinerary_id": null,
+  "fare_cents": 420000,
+  "lowest_logical_fare_cents": 119500,
+  "advance_days": 10,
   "reimbursable_checked_bags": "one"
  },
  "broken": [
@@ -54,6 +57,13 @@
     "reimbursable_checked_bags": "zero"
    },
    "reason": "bags-correct"
+  },
+  {
+   "why": "reports the economy fare of the business booking",
+   "change": {
+    "fare_cents": 128000
+   },
+   "reason": "fare-correct"
   }
  ]
 }

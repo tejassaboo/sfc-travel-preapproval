@@ -143,6 +143,9 @@ def audit_oracle(world, scenario):
         "in_policy": not needed,
         "required_preauthorizations": needed,
         "itinerary_id": None,
+        "fare_cents": itinerary["fares_cents"][scenario["chosen_cabin"]],
+        "lowest_logical_fare_cents": lowest_logical_fare(world, scenario),
+        "advance_days": advance_days(scenario),
         "reimbursable_checked_bags": bag_allowance(scenario["checked_bags"]),
     }
 
@@ -163,6 +166,7 @@ def valid_set(world, scenario):
     return {
         "valid_itinerary_ids": sorted(valid),
         "lowest_logical_fare_cents": lowest_logical_fare(world, scenario),
+        "advance_days": advance_days(scenario),
         "reimbursable_checked_bags": bag_allowance(scenario["checked_bags"]),
         "rejected": rejected,
     }

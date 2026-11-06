@@ -6,6 +6,9 @@
   "in_policy": true,
   "required_preauthorizations": [],
   "itinerary_id": null,
+  "fare_cents": 75000,
+  "lowest_logical_fare_cents": 55000,
+  "advance_days": 14,
   "reimbursable_checked_bags": "one"
  },
  "broken": [
@@ -49,6 +52,13 @@
     "reimbursable_checked_bags": "zero"
    },
    "reason": "bags-correct"
+  },
+  {
+   "why": "counts 13 days to the 16th",
+   "change": {
+    "advance_days": 13
+   },
+   "reason": "advance-days-correct"
   }
  ]
 }

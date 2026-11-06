@@ -1,15 +1,26 @@
 {
  "scenario": "athens-translation-sprint",
  "task": "sfc-book",
- "note": "Valid: I653 (142000) and I256 (149900). The nonstop I242 (150100) is inside the band but over the $1,500 international cap; I914 has 2 connections. No bags.",
+ "note": "Valid: I653 (142000, the lowest logical fare), I971 (148000) and I256 (149900). The nonstop I242 (150100) is inside the band but over the $1,500 international cap; I359 (162000) is over the cap with a band of exactly 20000; I649 (162001) is over the cap and one cent over the band; I867 and I914 have 2 connections. No bags.",
  "expected_valid_set": [
   "I256",
-  "I653"
+  "I653",
+  "I971"
  ],
  "expected_lowest_logical_fare_cents": 142000,
  "expected_rejected": {
   "I242": [
    "COST_OVER_INTL_1500"
+  ],
+  "I359": [
+   "COST_OVER_INTL_1500"
+  ],
+  "I649": [
+   "COST_OVER_INTL_1500",
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "I867": [
+   "TWO_PLUS_CONNECTIONS"
   ],
   "I914": [
    "TWO_PLUS_CONNECTIONS"
@@ -19,6 +30,9 @@
   "in_policy": true,
   "required_preauthorizations": [],
   "itinerary_id": "I653",
+  "fare_cents": 142000,
+  "lowest_logical_fare_cents": 142000,
+  "advance_days": 191,
   "reimbursable_checked_bags": "zero"
  },
  "broken": [
@@ -35,6 +49,14 @@
     "reimbursable_checked_bags": "one"
    },
    "reason": "bags-correct"
+  },
+  {
+   "why": "counts 190 days",
+   "change": {
+    "advance_days": 190
+   },
+   "reason": "advance-days-correct"
   }
- ]
+ ],
+ "expected_advance_days": 191
 }

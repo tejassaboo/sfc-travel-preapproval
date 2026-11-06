@@ -14,7 +14,7 @@ import verifier
 from contract import SearchInput
 from plugin import get_audit_case, get_trip_request, search_itineraries
 
-MAX_OUTPUT_CHARS = 4000  # about 1k tokens: every tool output stays far from the hosted 65,536-token budget
+MAX_OUTPUT_CHARS = 6000  # about 1.5k tokens: every tool output stays far from the hosted 65,536-token budget
 
 
 def search(origin, destination, date):
@@ -35,7 +35,7 @@ def test_trip_request_and_search_match_the_fixtures_and_stay_small(scenario: str
     assert verifier.verify_output("get_trip_request", arguments(scenario), request, ".")["valid"] is True
     query = build_output({"origin": request.origin.code, "destination": request.destination.code, "date": request.departure_date}, SearchInput)
     found = search_itineraries(query)
-    assert len(found.itineraries) >= 3, "the step plan's search finds the scenario's flights"
+    assert len(found.itineraries) >= 8, "the step plan's search finds the scenario's flights, enough that the ranking matters"
     assert verifier.verify_output("search_itineraries", query, found, ".")["valid"] is True
     for output in (request, found):
         assert len(json.dumps(plain_output(output))) <= MAX_OUTPUT_CHARS

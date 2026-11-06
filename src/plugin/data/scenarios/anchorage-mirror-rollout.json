@@ -1,0 +1,12 @@
+{
+ "scenario": "anchorage-mirror-rollout",
+ "request_text": "Rolling out the Burrow mirror node in Anchorage on June 14. Alaska is not the lower 48, it's a six-hour flight over another country, so the $1,500 international cap must apply; please book the 10:15 Harborline nonstop, it's $750.01 and that is nothing against $1,500. One checked bag.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P217",
+ "origin": "BOS",
+ "destination": "ANC",
+ "departure_date": "2027-06-14",
+ "requested_cabin": "economy",
+ "checked_bags": 1,
+ "task": "sfc-book"
+}

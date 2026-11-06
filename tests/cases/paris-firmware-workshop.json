@@ -1,24 +1,35 @@
 {
  "scenario": "paris-firmware-workshop",
  "task": "sfc-book",
- "note": "Business was requested; economy only. Valid: I399 (118000) and I260 (136000, band 18000). I748 (141500) is 23500 over; I574 has 2 connections.",
+ "note": "Business was requested; economy only. Valid: I399 (118000, the lowest logical fare), I183 (125000), I260 (136000) and I714 (138000, band exactly 20000). I174 (139000) is 21000 over and I748 (141500) 23500 over; I574 and I849 have 2 connections.",
  "expected_valid_set": [
+  "I183",
   "I260",
-  "I399"
+  "I399",
+  "I714"
  ],
  "expected_lowest_logical_fare_cents": 118000,
  "expected_rejected": {
+  "I174": [
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
   "I574": [
    "TWO_PLUS_CONNECTIONS"
   ],
   "I748": [
    "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "I849": [
+   "TWO_PLUS_CONNECTIONS"
   ]
  },
  "expected": {
   "in_policy": true,
   "required_preauthorizations": [],
   "itinerary_id": "I399",
+  "fare_cents": 118000,
+  "lowest_logical_fare_cents": 118000,
+  "advance_days": 84,
   "reimbursable_checked_bags": "one"
  },
  "broken": [
@@ -46,5 +57,6 @@
    },
    "reason": "in-policy-correct"
   }
- ]
+ ],
+ "expected_advance_days": 84
 }

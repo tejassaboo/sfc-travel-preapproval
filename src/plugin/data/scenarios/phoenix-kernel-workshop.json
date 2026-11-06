@@ -1,0 +1,12 @@
+{
+ "scenario": "phoenix-kernel-workshop",
+ "request_text": "Ferrolith kernel workshop in Phoenix on the 16th. I know this is inside two weeks from today, so it needs the short-notice sign-off whatever we do; given that, just book the 17:45 Northstar nonstop so I can work the morning, the extra $200 hardly matters once a code is on the slip. Carry-on only.",
+ "booking_date": "2026-11-02",
+ "traveler_id": "P219",
+ "origin": "ORD",
+ "destination": "PHX",
+ "departure_date": "2026-11-16",
+ "requested_cabin": "economy",
+ "checked_bags": 0,
+ "task": "sfc-book"
+}

@@ -1,0 +1,80 @@
+{
+ "scenario": "phoenix-kernel-workshop",
+ "task": "sfc-book",
+ "note": "Booked exactly 14 days ahead (2026-11-02 to 2026-11-16): no advance-purchase code, whatever the request says about two weeks. Lowest logical fare 24900 (I620, the 07:30 nonstop). Valid: I620 (24900), I858 (28700), I249 (31500), I641 (38800) and I480 (44900, band exactly 20000). I593, the requested 17:45 nonstop at 44901, is one cent over the band; I902 (52000) is 27100 over; I404 (90000) is over the $750 cap and the band; I503 (19900) has 2 connections. No bags.",
+ "expected_valid_set": [
+  "I249",
+  "I480",
+  "I620",
+  "I641",
+  "I858"
+ ],
+ "expected_lowest_logical_fare_cents": 24900,
+ "expected_advance_days": 14,
+ "expected_rejected": {
+  "I404": [
+   "COST_OVER_DOMESTIC_750",
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "I503": [
+   "TWO_PLUS_CONNECTIONS"
+  ],
+  "I593": [
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "I902": [
+   "ABOVE_LOW_FARE_BAND_200"
+  ]
+ },
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": "I620",
+  "fare_cents": 24900,
+  "lowest_logical_fare_cents": 24900,
+  "advance_days": 14,
+  "reimbursable_checked_bags": "zero"
+ },
+ "broken": [
+  {
+   "why": "accepts 'inside two weeks' and routes a short-notice code",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "BOOKED_LT_14_DAYS"
+    ]
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "books the requested 17:45 nonstop, one cent over the band",
+   "change": {
+    "itinerary_id": "I593",
+    "fare_cents": 44901
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "books the cheapest fare, which has 2 connections",
+   "change": {
+    "itinerary_id": "I503",
+    "fare_cents": 19900
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "counts 13 days",
+   "change": {
+    "advance_days": 13
+   },
+   "reason": "advance-days-correct"
+  },
+  {
+   "why": "reimburses a bag nobody checks",
+   "change": {
+    "reimbursable_checked_bags": "one"
+   },
+   "reason": "bags-correct"
+  }
+ ]
+}

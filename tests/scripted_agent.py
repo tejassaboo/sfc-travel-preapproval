@@ -62,6 +62,9 @@ def run_audit(scenario, call):
         "in_policy": not found,
         "required_preauthorizations": found,
         "itinerary_id": None,
+        "fare_cents": chosen["fares_cents"][case["chosen"]["cabin"]],
+        "lowest_logical_fare_cents": lowest_logical(options),
+        "advance_days": days(case["booking_date"], case["departure_date"]),
         "reimbursable_checked_bags": bags(case["checked_bags_requested"]),
     }
 
@@ -78,6 +81,9 @@ def run_book(scenario, call):
         "in_policy": True,
         "required_preauthorizations": [],
         "itinerary_id": best["itinerary_id"],
+        "fare_cents": best["fares_cents"]["economy"],
+        "lowest_logical_fare_cents": lowest_logical(options),
+        "advance_days": days(request["booking_date"], request["departure_date"]),
         "reimbursable_checked_bags": bags(request["checked_bags_requested"]),
     }
 

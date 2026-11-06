@@ -28,6 +28,7 @@ These settle every point where the source is vague. The checker enforces exactly
 - **C8 In policy.** in_policy is true exactly when required_preauthorizations is empty. List each code once, in any order. Checked bags never make a booking out of policy.
 - **C9 Bags.** reimbursable_checked_bags is zero when checked_bags_requested is 0, and one otherwise, however many bags are requested.
 - **C10 Audit.** For sfc-audit, list every code that C3–C7 give for the chosen booking, as it was booked, and set itinerary_id to null.
+- **C10a Magnitudes.** Every submission also states the numbers it judged: fare_cents is the airfare of C3 (the chosen fare in the booked cabin for an audit; your itinerary's economy fare for a booking), lowest_logical_fare_cents is C5's lowest logical fare, and advance_days is C4's days. All three are integers, and a desk reads them off the slip.
 - **C11 Booking.** For sfc-book, book an itinerary leaving origin on departure_date for destination, in economy, whose economy fare needs no code under C3–C7. Any such itinerary is correct. Several may qualify, and the checker accepts any of them. Then in_policy is true, required_preauthorizations is empty, and itinerary_id names your choice. A requested cabin above economy is never booked.
 - **C12 Facts.** The structured fields are the facts. The request text is the traveler's voice: it may misstate the policy, misread a number, or ask for things policy forbids. Never take its claims over the fields.
 
@@ -51,7 +52,7 @@ The following parts of the source are deliberately ignored:
 You have 6 steps. Each tool call costs one, and the last step may not call tools.
 
 1. Call get_audit_case with the task's scenario.
-2. Apply C2–C9 to the chosen booking as it was booked (chosen.cabin and chosen.fare_cents), using same_day_itineraries for the lowest logical fare. Call submit with in_policy, required_preauthorizations (each code once), itinerary_id null, and reimbursable_checked_bags (C9).
+2. Apply C2–C9 to the chosen booking as it was booked (chosen.cabin and chosen.fare_cents), using same_day_itineraries for the lowest logical fare. Call submit with in_policy, required_preauthorizations (each code once), itinerary_id null, fare_cents, lowest_logical_fare_cents, advance_days (C10a), and reimbursable_checked_bags (C9).
 
 ## Step plan: sfc-book (submit by step 5)
 
@@ -59,4 +60,4 @@ You have 6 steps. Each tool call costs one, and the last step may not call tools
 
 1. Call get_trip_request with the task's scenario.
 2. Call search_itineraries once, with the origin's code, the destination's code and date = departure_date.
-3. Find the lowest logical fare (C5). Pick one itinerary whose economy fare needs no code (C3–C7). Call submit with in_policy true, required_preauthorizations [], that itinerary_id, and reimbursable_checked_bags (C9).
+3. Find the lowest logical fare (C5). Pick one itinerary whose economy fare needs no code (C3–C7). Call submit with in_policy true, required_preauthorizations [], that itinerary_id, its economy fare as fare_cents, lowest_logical_fare_cents, advance_days (C10a), and reimbursable_checked_bags (C9).

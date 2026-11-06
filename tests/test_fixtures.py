@@ -10,7 +10,7 @@ from itertools import pairwise
 from zoneinfo import ZoneInfo
 
 import pytest
-from helpers import AUDITS, DATA, ROOT, SCENARIOS
+from helpers import AUDITS, BOOKINGS, DATA, ROOT, SCENARIOS
 
 from contract import AuditCaseOutput, ItineraryOption, SfcPreauth, TripRequestOutput
 from plugin.fixtures import world
@@ -153,7 +153,7 @@ def test_scenario_files_hold_facts_only(scenario: str) -> None:
     assert facts["traveler_id"] in world()["travelers"]
     assert facts["origin"] in world()["airports"] and facts["destination"] in world()["airports"]
     found = same_day(world(), facts)
-    assert len(found) >= 2  # always alternatives to compare against
+    assert len(found) >= (8 if scenario in BOOKINGS else 5)  # always alternatives to compare against
     if scenario in AUDITS:
         assert facts["chosen_itinerary_id"] in [item["itinerary_id"] for item in found]
         assert world()["itineraries"][facts["chosen_itinerary_id"]]["fares_cents"][facts["chosen_cabin"]] is not None

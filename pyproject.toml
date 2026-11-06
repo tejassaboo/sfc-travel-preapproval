@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nanoagent-sfc-travel-preapproval"
-version = "0.1.0"
+version = "0.2.0"
 description = "SFC Travel Pre-Approval: a NanoAgent plugin"
 requires-python = ">=3.12"
 dependencies = ["mcp>=1.27,<2", "slimconfig"]

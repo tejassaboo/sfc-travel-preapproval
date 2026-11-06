@@ -8,6 +8,9 @@
    "COST_OVER_DOMESTIC_750"
   ],
   "itinerary_id": null,
+  "fare_cents": 75001,
+  "lowest_logical_fare_cents": 62000,
+  "advance_days": 37,
   "reimbursable_checked_bags": "one"
  },
  "broken": [
@@ -39,6 +42,13 @@
     ]
    },
    "reason": "preauths-unique"
+  },
+  {
+   "why": "rounds the fare to $750.00",
+   "change": {
+    "fare_cents": 75000
+   },
+   "reason": "fare-correct"
   }
  ]
 }

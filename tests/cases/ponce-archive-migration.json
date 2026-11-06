@@ -1,0 +1,79 @@
+{
+ "scenario": "ponce-archive-migration",
+ "task": "sfc-book",
+ "note": "Ponce (Puerto Rico) is outside the 50 states + DC, so the trip is international and the $1,500 cap applies: every nonstop is under it, whatever the request says about the $750 line. Booked exactly 365 days ahead (2026-11-02 to 2027-11-02): no advance-purchase code. Premium economy was requested; economy only. Lowest logical fare 78500 (I204, the 09:15 nonstop). Valid: I204 (78500), I885 (82000), I719 (85000), I266 (91000) and I100 (98500, band exactly 20000). I716 (98501) is one cent over the band; I958 (99900) is 21400 over; I723 (61000), the only fare under $750, has 2 connections. Two bags requested, one reimbursable.",
+ "expected_valid_set": [
+  "I100",
+  "I204",
+  "I266",
+  "I719",
+  "I885"
+ ],
+ "expected_lowest_logical_fare_cents": 78500,
+ "expected_advance_days": 365,
+ "expected_rejected": {
+  "I716": [
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "I723": [
+   "TWO_PLUS_CONNECTIONS"
+  ],
+  "I958": [
+   "ABOVE_LOW_FARE_BAND_200"
+  ]
+ },
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": "I204",
+  "fare_cents": 78500,
+  "lowest_logical_fare_cents": 78500,
+  "advance_days": 365,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "books the only fare under $750, which has 2 connections",
+   "change": {
+    "itinerary_id": "I723",
+    "fare_cents": 61000
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "applies the domestic cap to Puerto Rico",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "COST_OVER_DOMESTIC_750"
+    ]
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "routes a code for exactly 365 days",
+   "change": {
+    "in_policy": false,
+    "required_preauthorizations": [
+     "BOOKED_GT_365_DAYS"
+    ]
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "books one cent over the band",
+   "change": {
+    "itinerary_id": "I716",
+    "fare_cents": 98501
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "reports the premium economy fare it was asked for",
+   "change": {
+    "fare_cents": 112000
+   },
+   "reason": "fare-correct"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "scenario": "dublin-packaging-summit",
+ "task": "sfc-book",
+ "note": "Business was requested; economy only. International (DUB), so the $1,500 cap applies. Lowest logical fare 130000 (I886, one stop via BOS). Valid: I886 (130000), I153 (131000), I519 (138000), I107 (149900) and I245 (the Meridian nonstop at exactly 150000, a band of exactly 20000). I452 (150001) is one cent over both the cap and the band; I491 (152500) is over both; I892 (99000) has 2 connections. 169 days ahead; one bag.",
+ "expected_valid_set": [
+  "I107",
+  "I153",
+  "I245",
+  "I519",
+  "I886"
+ ],
+ "expected_lowest_logical_fare_cents": 130000,
+ "expected_advance_days": 169,
+ "expected_rejected": {
+  "I452": [
+   "COST_OVER_INTL_1500",
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "I491": [
+   "COST_OVER_INTL_1500",
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
+  "I892": [
+   "TWO_PLUS_CONNECTIONS"
+  ]
+ },
+ "expected": {
+  "in_policy": true,
+  "required_preauthorizations": [],
+  "itinerary_id": "I886",
+  "fare_cents": 130000,
+  "lowest_logical_fare_cents": 130000,
+  "advance_days": 169,
+  "reimbursable_checked_bags": "one"
+ },
+ "broken": [
+  {
+   "why": "books the other nonstop, one cent over the cap and the band",
+   "change": {
+    "itinerary_id": "I452",
+    "fare_cents": 150001
+   },
+   "reason": "itinerary-in-policy"
+  },
+  {
+   "why": "books business as asked and routes the cabin code",
+   "change": {
+    "itinerary_id": "I245",
+    "in_policy": false,
+    "required_preauthorizations": [
+     "NON_ECONOMY_CABIN"
+    ],
+    "fare_cents": 480000
+   },
+   "reason": "in-policy-correct"
+  },
+  {
+   "why": "books the right nonstop but reports its business fare",
+   "change": {
+    "itinerary_id": "I245",
+    "fare_cents": 480000
+   },
+   "reason": "fare-correct"
+  },
+  {
+   "why": "books the cheapest fare, which has 2 connections",
+   "change": {
+    "itinerary_id": "I892",
+    "fare_cents": 99000
+   },
+   "reason": "itinerary-in-policy"
+  }
+ ]
+}

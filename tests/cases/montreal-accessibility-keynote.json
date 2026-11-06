@@ -8,6 +8,9 @@
    "NON_ECONOMY_CABIN"
   ],
   "itinerary_id": null,
+  "fare_cents": 48000,
+  "lowest_logical_fare_cents": 33000,
+  "advance_days": 42,
   "reimbursable_checked_bags": "one"
  },
  "broken": [

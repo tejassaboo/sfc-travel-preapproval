@@ -8,7 +8,8 @@ from helpers import AUDITS, BOOKINGS, ROOT, SCENARIOS, case, task_of, verdict
 from scripted_agent import run
 from slimconfig import build_output, plain_output
 
-from contract import TOOLS, SfcOutput, Tool
+import verifier
+from contract import TOOLS, SfcOutput, SfcPreauth, Tool
 from plugin import get_audit_case, get_trip_request, search_itineraries
 from plugin.fixtures import scenario as load_scenario
 from plugin.fixtures import world
@@ -48,6 +49,7 @@ def test_valid_set_equals_the_hand_written_expectation(scenario: str) -> None:
     key, written = valid_set(world(), load_scenario(scenario)), case(scenario)
     assert key["valid_itinerary_ids"] == written["expected_valid_set"]
     assert key["lowest_logical_fare_cents"] == written["expected_lowest_logical_fare_cents"]
+    assert key["advance_days"] == written["expected_advance_days"]
     assert key["rejected"] == written["expected_rejected"]
     assert key["reimbursable_checked_bags"] == written["expected"]["reimbursable_checked_bags"]
     assert written["expected"]["itinerary_id"] in written["expected_valid_set"]
@@ -55,13 +57,34 @@ def test_valid_set_equals_the_hand_written_expectation(scenario: str) -> None:
 
 def test_some_booking_has_several_equally_valid_itineraries() -> None:
     assert sum(len(case(scenario)["expected_valid_set"]) >= 2 for scenario in BOOKINGS) >= 1
+    assert all(len(case(scenario)["expected_valid_set"]) >= 3 for scenario in BOOKINGS)  # search and ranking matter
+
+
+def test_every_code_occurs_in_a_bundled_scenario() -> None:
+    """Every pre-authorization code is required by some audit; every code an itinerary can trigger on its own
+    (the cost caps, the band, two connections) also rejects some booking option. The two date codes and the
+    cabin code never appear in a booking's rejected set: they turn on the trip's dates or on a cabin other
+    than economy, which no same-day itinerary booked in economy can change, so they are audit-only there."""
+    audited = {code for scenario in AUDITS for code in case(scenario)["expected"]["required_preauthorizations"]}
+    assert audited == {member.value for member in SfcPreauth}
+    rejected = {code for scenario in BOOKINGS for codes in case(scenario)["expected_rejected"].values() for code in codes}
+    assert rejected == {"COST_OVER_DOMESTIC_750", "COST_OVER_INTL_1500", "ABOVE_LOW_FARE_BAND_200", "TWO_PLUS_CONNECTIONS"}
+
+
+def test_every_reachable_reason_code_occurs_in_a_broken_variant() -> None:
+    """Each verifier constraint fails first in some bundled broken variant, except the answer-key checks, which
+    can only fail when the plugin itself is broken (the pinned reference differs from the oracle)."""
+    reasons = {broken["reason"] for scenario in SCENARIOS for broken in case(scenario)["broken"]}
+    assert set(verifier.audit.TEXT) - reasons == {"reference-matches-oracle"}
+    assert set(verifier.book.TEXT) - reasons == {"reference-matches-valid-set"}
 
 
 @pytest.mark.parametrize("scenario", BOOKINGS)
 def test_every_member_of_the_valid_set_passes(scenario: str) -> None:
     for itinerary_id in case(scenario)["expected_valid_set"]:
-        result = verdict(scenario, {**case(scenario)["expected"], "itinerary_id": itinerary_id})
-        assert result["valid"] is True, result["message"]
+        fare = world()["itineraries"][itinerary_id]["fares_cents"]["economy"]
+        result = verdict(scenario, {**case(scenario)["expected"], "itinerary_id": itinerary_id, "fare_cents": fare})
+        assert result["valid"] is True and result["score"] == 1.0, result["message"]
 
 
 @pytest.mark.parametrize("scenario", SCENARIOS)

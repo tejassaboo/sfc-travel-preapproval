@@ -6,6 +6,10 @@ Each scenario's flights are written out by hand, because each one sits on a boun
 (TRAVEL_POLICY_TASKS_CONTEXT.md section 4, T4); the seed only scatters the itinerary ids, so an answer is
 never simply the first or lowest id. Carriers, travelers and member projects are fictional, and so are all
 fares. Expected answers are not written here: they live in tests/cases/.
+
+Itinerary ids come from one seeded stream of distinct numbers, drawn in a fixed order: first every
+scenario's original options (the 0.1.0 inventory, in scenario order), then the options added in 0.2.0
+(each scenario's third list). So growing the inventory never renames an itinerary that a case already cites.
 """
 
 import random
@@ -19,6 +23,7 @@ DATA = Path(__file__).resolve().parents[1] / "data"
 AIRPORTS = [
     # code, city, country, continental US, US 50 states + DC, IANA timezone
     ("AMS", "Amsterdam", "NL", False, False, "Europe/Amsterdam"),
+    ("ANC", "Anchorage", "US", False, True, "America/Anchorage"),
     ("ATH", "Athens", "GR", False, False, "Europe/Athens"),
     ("ATL", "Atlanta", "US", True, True, "America/New_York"),
     ("AUS", "Austin", "US", True, True, "America/Chicago"),
@@ -27,6 +32,7 @@ AIRPORTS = [
     ("CDG", "Paris Charles de Gaulle", "FR", False, False, "Europe/Paris"),
     ("CLT", "Charlotte", "US", True, True, "America/New_York"),
     ("DEN", "Denver", "US", True, True, "America/Denver"),
+    ("DUB", "Dublin", "IE", False, False, "Europe/Dublin"),
     ("EWR", "Newark", "US", True, True, "America/New_York"),
     ("FRA", "Frankfurt", "DE", False, False, "Europe/Berlin"),
     ("GVA", "Geneva", "CH", False, False, "Europe/Zurich"),
@@ -41,6 +47,8 @@ AIRPORTS = [
     ("MSP", "Minneapolis", "US", True, True, "America/Chicago"),
     ("ORD", "Chicago O'Hare", "US", True, True, "America/Chicago"),
     ("PDX", "Portland", "US", True, True, "America/Los_Angeles"),
+    ("PHX", "Phoenix", "US", True, True, "America/Phoenix"),
+    ("PSE", "Ponce", "PR", False, False, "America/Puerto_Rico"),
     ("RDU", "Raleigh-Durham", "US", True, True, "America/New_York"),
     ("SEA", "Seattle", "US", True, True, "America/Los_Angeles"),
     ("SFO", "San Francisco", "US", True, True, "America/Los_Angeles"),
@@ -81,6 +89,10 @@ TRAVELERS = [
     ("P214", "Bashir Haddad", "Firmware maintainer, Copperleaf bootloader", "New York, NY"),
     ("P215", "Eleni Papadakis", "Translation lead, Larkspur Docs", "Boston, MA"),
     ("P216", "Gideon Mbeki", "Release manager, Tidepool CI", "Atlanta, GA"),
+    ("P217", "Ingrid Solberg", "Infrastructure volunteer, Burrow package index", "Boston, MA"),
+    ("P218", "Niamh Byrne", "Packaging lead, Kestrel Linux", "Chicago, IL"),
+    ("P219", "Marcus Oyelaran", "Kernel maintainer, Ferrolith compiler", "Chicago, IL"),
+    ("P220", "Carmen Alvarado", "Archivist, Tinderbox education", "Atlanta, GA"),
 ]
 
 
@@ -88,17 +100,19 @@ def fares(economy, premium_economy, business, first=None):
     return {"economy": economy, "premium_economy": premium_economy, "business": business, "first": first}
 
 
-def audit(facts, itineraries):
-    return {"facts": {**facts, "task": "sfc-audit"}, "itineraries": itineraries}
+def audit(facts, itineraries, more=()):
+    return {"facts": {**facts, "task": "sfc-audit"}, "itineraries": itineraries, "more": list(more)}
 
 
-def book(facts, itineraries):
-    return {"facts": {**facts, "task": "sfc-book"}, "itineraries": itineraries}
+def book(facts, itineraries, more=()):
+    return {"facts": {**facts, "task": "sfc-book"}, "itineraries": itineraries, "more": list(more)}
 
 
-# Per scenario: its facts, and its itineraries as (key, segments, fares), each segment
-# (flight, marketing carrier, operating carrier, origin, destination, local departure, in-air minutes).
-# An audit's chosen_itinerary_id names one of its own itineraries by key; build() swaps in the seeded id.
+# Per scenario: its facts, its original itineraries, and (third list) the itineraries added in 0.2.0, each
+# (key, segments, fares), each segment (flight, marketing carrier, operating carrier, origin, destination,
+# local departure, in-air minutes). An audit's chosen_itinerary_id names one of its own itineraries by key;
+# build() swaps in the seeded id. Added options never undercut a scenario's lowest logical fare, so every
+# original boundary story stands.
 SCENARIOS = [
     audit(
         {
@@ -137,6 +151,17 @@ SCENARIOS = [
                 fares(41000, None, 165000),
             ),
         ],
+        [
+            ("d", [("NS 1121", "NS", "NS", "BOS", "PDX", "2026-11-16T13:30", 390)], fares(61000, 99000, 220000)),
+            (
+                "e",
+                [
+                    ("CQ 980", "CQ", "CQ", "BOS", "DEN", "2026-11-16T09:20", 275),
+                    ("CQ 1452", "CQ", "CQ", "DEN", "PDX", "2026-11-16T13:40", 160),
+                ],
+                fares(58500, None, 190000),
+            ),
+        ],
     ),
     audit(
         {
@@ -166,6 +191,25 @@ SCENARIOS = [
                 fares(62000, None, 171000),
             ),
             ("c", [("CQ 1890", "CQ", "CQ", "JFK", "DEN", "2026-12-09T17:10", 280)], fares(69900, 104000, 182000)),
+        ],
+        [
+            (
+                "d",
+                [
+                    ("LK 2240", "LK", "LK", "JFK", "MSP", "2026-12-09T07:20", 190),
+                    ("LK 2611", "LK", "LK", "MSP", "DEN", "2026-12-09T11:15", 135),
+                ],
+                fares(66000, None, 158000),
+            ),
+            (
+                "e",
+                [
+                    ("LK 2008", "LK", "LK", "JFK", "CLT", "2026-12-09T06:00", 125),
+                    ("LK 2777", "LK", "LK", "CLT", "ORD", "2026-12-09T09:30", 135),
+                    ("LK 2902", "LK", "LK", "ORD", "DEN", "2026-12-09T12:30", 160),
+                ],
+                fares(48000, None, 150000),
+            ),
         ],
     ),
     audit(
@@ -203,6 +247,25 @@ SCENARIOS = [
                 fares(132500, 240000, 585000),
             ),
             ("c", [("AU 471", "AU", "AU", "SFO", "BER", "2027-11-02T13:30", 655)], fares(158000, 262000, 640000)),
+        ],
+        [
+            (
+                "d",
+                [
+                    ("AU 115", "AU", "AU", "SFO", "AMS", "2027-11-02T14:10", 640),
+                    ("AU 1206", "AU", "AU", "AMS", "BER", "2027-11-03T10:30", 75),
+                ],
+                fares(139000, 244000, 590000),
+            ),
+            (
+                "e",
+                [
+                    ("HB 24", "HB", "HB", "SFO", "JFK", "2027-11-02T08:00", 330),
+                    ("MX 100", "MX", "MX", "JFK", "LHR", "2027-11-02T18:30", 425),
+                    ("MX 990", "MX", "MX", "LHR", "BER", "2027-11-03T07:40", 115),
+                ],
+                fares(110000, None, 520000),
+            ),
         ],
     ),
     audit(
@@ -249,6 +312,17 @@ SCENARIOS = [
                 fares(118000, None, 455000),
             ),
         ],
+        [
+            ("d", [("SI 400", "SI", "SI", "ORD", "LIS", "2027-03-10T17:20", 500)], fares(162000, 250000, 540000)),
+            (
+                "e",
+                [
+                    ("NS 1024", "NS", "NS", "ORD", "JFK", "2027-03-10T11:00", 140),
+                    ("SI 210", "SI", "SI", "JFK", "LIS", "2027-03-10T19:55", 395),
+                ],
+                fares(145500, 232000, 505000),
+            ),
+        ],
     ),
     audit(
         {
@@ -279,6 +353,18 @@ SCENARIOS = [
                 fares(38800, None, 112000),
             ),
         ],
+        [
+            ("d", [("LK 3030", "LK", "LK", "AUS", "ORD", "2026-12-03T12:30", 160)], fares(39500, None, 105000)),
+            (
+                "e",
+                [
+                    ("CQ 2210", "CQ", "CQ", "AUS", "DEN", "2026-12-03T06:10", 140),
+                    ("CQ 1388", "CQ", "CQ", "DEN", "MSP", "2026-12-03T09:00", 125),
+                    ("CQ 1570", "CQ", "CQ", "MSP", "ORD", "2026-12-03T13:30", 85),
+                ],
+                fares(27000, None, 95000),
+            ),
+        ],
     ),
     audit(
         {
@@ -307,6 +393,27 @@ SCENARIOS = [
                 fares(33100, None, 118000),
             ),
         ],
+        [
+            ("c", [("HB 2250", "HB", "HB", "SEA", "AUS", "2026-11-15T14:20", 240)], fares(45000, 66000, 135000)),
+            (
+                "d",
+                [
+                    ("NS 1702", "NS", "NS", "SEA", "SLC", "2026-11-15T07:10", 115),
+                    ("NS 2244", "NS", "NS", "SLC", "AUS", "2026-11-15T11:40", 170),
+                ],
+                fares(36700, None, 120000),
+            ),
+            (
+                "e",
+                [
+                    ("LK 4410", "LK", "LK", "SEA", "SLC", "2026-11-15T05:50", 115),
+                    ("LK 4133", "LK", "LK", "SLC", "DEN", "2026-11-15T10:15", 80),
+                    ("LK 4580", "LK", "LK", "DEN", "AUS", "2026-11-15T13:05", 125),
+                ],
+                fares(29900, None, 110000),
+            ),
+            ("f", [("NS 560", "NS", "NS", "SEA", "AUS", "2026-11-15T18:10", 240)], fares(41500, 62000, 128000)),
+        ],
     ),
     audit(
         {
@@ -333,6 +440,26 @@ SCENARIOS = [
                     ("PC 15", "PC", "PC", "SEA", "HND", "2027-11-03T12:30", 640),
                 ],
                 fares(98000, 171000, 455000),
+            ),
+        ],
+        [
+            (
+                "c",
+                [
+                    ("CQ 1412", "CQ", "CQ", "LAX", "SFO", "2027-11-03T08:30", 85),
+                    ("PC 21", "PC", "PC", "SFO", "HND", "2027-11-03T11:45", 665),
+                ],
+                fares(103000, 176000, 470000),
+            ),
+            ("d", [("PC 9", "PC", "PC", "LAX", "HND", "2027-11-03T17:00", 700)], fares(125000, 198000, 510000)),
+            (
+                "e",
+                [
+                    ("CQ 1801", "CQ", "CQ", "LAX", "SEA", "2027-11-03T07:00", 165),
+                    ("CQ 77", "CQ", "CQ", "SEA", "HNL", "2027-11-03T11:30", 380),
+                    ("PC 403", "PC", "PC", "HNL", "HND", "2027-11-03T16:30", 530),
+                ],
+                fares(88000, None, 410000),
             ),
         ],
     ),
@@ -373,6 +500,17 @@ SCENARIOS = [
             ),
             ("c", [("HB 677", "HB", "HB", "MSP", "RDU", "2026-12-07T10:10", 150)], fares(35600, None, 104000)),
         ],
+        [
+            ("d", [("CQ 1766", "CQ", "CQ", "MSP", "RDU", "2026-12-07T15:40", 150)], fares(38000, None, 110000)),
+            (
+                "e",
+                [
+                    ("HB 1511", "HB", "HB", "MSP", "ORD", "2026-12-07T09:00", 85),
+                    ("HB 1690", "HB", "HB", "ORD", "RDU", "2026-12-07T12:00", 115),
+                ],
+                fares(30200, None, 99000),
+            ),
+        ],
     ),
     audit(
         {
@@ -401,6 +539,18 @@ SCENARIOS = [
                 ],
                 fares(36500, 52000, 99000),
             ),
+        ],
+        [
+            ("c", [("HB 1360", "HB", "HB", "BOS", "YUL", "2026-12-14T13:15", 85)], fares(35500, 50000, 94000)),
+            (
+                "d",
+                [
+                    ("LK 1222", "LK", "LK", "BOS", "EWR", "2026-12-14T06:30", 80),
+                    ("BL 821", "BL", "BL", "EWR", "YUL", "2026-12-14T09:40", 95),
+                ],
+                fares(34900, 49500, 96000),
+            ),
+            ("e", [("BL 619", "BL", "BL", "BOS", "YUL", "2026-12-14T17:30", 80)], fares(39000, 54000, 98000)),
         ],
     ),
     audit(
@@ -447,6 +597,17 @@ SCENARIOS = [
                 fares(99000, None, 365000),
             ),
         ],
+        [
+            ("d", [("MX 60", "MX", "MX", "IAD", "GVA", "2026-11-12T18:45", 490)], fares(131000, 240000, 430000)),
+            (
+                "e",
+                [
+                    ("AU 2", "AU", "AU", "IAD", "AMS", "2026-11-12T17:10", 465),
+                    ("AU 1930", "AU", "AU", "AMS", "GVA", "2026-11-13T08:40", 95),
+                ],
+                fares(124000, 230000, 405000),
+            ),
+        ],
     ),
     audit(
         {
@@ -467,6 +628,25 @@ SCENARIOS = [
         [
             ("a", [("CQ 1135", "CQ", "CQ", "SFO", "HNL", "2027-01-18T09:40", 330)], fares(82500, 129000, 196000)),
             ("b", [("HB 1717", "HB", "HB", "SFO", "HNL", "2027-01-18T13:15", 335)], fares(79000, 124000, 188000)),
+        ],
+        [
+            (
+                "c",
+                [
+                    ("CQ 1301", "CQ", "CQ", "SFO", "LAX", "2027-01-18T07:00", 85),
+                    ("CQ 1133", "CQ", "CQ", "LAX", "HNL", "2027-01-18T10:10", 350),
+                ],
+                fares(80500, 126000, 190000),
+            ),
+            ("d", [("NS 1540", "NS", "NS", "SFO", "HNL", "2027-01-18T16:30", 335)], fares(91000, 138000, 205000)),
+            (
+                "e",
+                [
+                    ("HB 1409", "HB", "HB", "SFO", "SEA", "2027-01-18T06:15", 125),
+                    ("HB 1721", "HB", "HB", "SEA", "HNL", "2027-01-18T10:00", 370),
+                ],
+                fares(84000, 131000, 198000),
+            ),
         ],
     ),
     audit(
@@ -496,6 +676,33 @@ SCENARIOS = [
                 fares(81000, None, 214000),
             ),
             ("b", [("NS 1406", "NS", "NS", "ORD", "SJU", "2027-02-08T08:45", 290)], fares(77500, None, 205000)),
+        ],
+        [
+            (
+                "c",
+                [
+                    ("NS 1300", "NS", "NS", "ORD", "ATL", "2027-02-08T07:10", 115),
+                    ("NS 2290", "NS", "NS", "ATL", "SJU", "2027-02-08T11:50", 200),
+                ],
+                fares(79900, None, 208000),
+            ),
+            (
+                "d",
+                [
+                    ("HB 1402", "HB", "HB", "ORD", "JFK", "2027-02-08T08:00", 140),
+                    ("HB 2501", "HB", "HB", "JFK", "SJU", "2027-02-08T13:10", 235),
+                ],
+                fares(83500, None, 218000),
+            ),
+            (
+                "e",
+                [
+                    ("LK 3100", "LK", "LK", "ORD", "ATL", "2027-02-08T05:45", 115),
+                    ("LK 3622", "LK", "LK", "ATL", "MIA", "2027-02-08T10:15", 115),
+                    ("LK 3899", "LK", "LK", "MIA", "SJU", "2027-02-08T13:45", 165),
+                ],
+                fares(69000, None, 185000),
+            ),
         ],
     ),
     book(
@@ -543,6 +750,25 @@ SCENARIOS = [
             ),
             ("f", [("CQ 650", "CQ", "CQ", "DEN", "BOS", "2026-12-01T07:10", 235)], fares(19900, 41000, 130000)),
         ],
+        [
+            ("g", [("HB 1660", "HB", "HB", "DEN", "BOS", "2026-12-02T16:30", 230)], fares(38500, 60000, 148000)),
+            (
+                "h",
+                [
+                    ("NS 1420", "NS", "NS", "DEN", "MSP", "2026-12-02T09:50", 115),
+                    ("NS 1575", "NS", "NS", "MSP", "BOS", "2026-12-02T14:30", 170),
+                ],
+                fares(49900, None, 156000),
+            ),
+            (
+                "i",
+                [
+                    ("CQ 1210", "CQ", "CQ", "DEN", "ORD", "2026-12-02T13:15", 145),
+                    ("CQ 1490", "CQ", "CQ", "ORD", "BOS", "2026-12-02T18:20", 130),
+                ],
+                fares(55000, None, 162000),
+            ),
+        ],
     ),
     book(
         {
@@ -579,6 +805,27 @@ SCENARIOS = [
                 ],
                 fares(97000, None, 470000),
             ),
+        ],
+        [
+            ("e", [("AU 20", "AU", "AU", "JFK", "CDG", "2027-01-25T19:40", 430)], fares(125000, 215000, 540000)),
+            (
+                "f",
+                [
+                    ("LK 2300", "LK", "LK", "JFK", "IAD", "2027-01-25T13:30", 80),
+                    ("MX 640", "MX", "MX", "IAD", "CDG", "2027-01-25T17:20", 450),
+                ],
+                fares(139000, 230000, 565000),
+            ),
+            (
+                "g",
+                [
+                    ("NS 802", "NS", "NS", "JFK", "BOS", "2027-01-25T13:00", 75),
+                    ("AU 610", "AU", "AU", "BOS", "AMS", "2027-01-25T17:50", 420),
+                    ("AU 1310", "AU", "AU", "AMS", "CDG", "2027-01-26T08:30", 80),
+                ],
+                fares(105000, None, 490000),
+            ),
+            ("h", [("NS 30", "NS", "NS", "JFK", "CDG", "2027-01-25T22:40", 425)], fares(138000, 226000, 555000)),
         ],
     ),
     book(
@@ -622,6 +869,41 @@ SCENARIOS = [
                     ("SI 1822", "SI", "SI", "LIS", "ATH", "2027-05-13T12:40", 235),
                 ],
                 fares(121000, None, 480000),
+            ),
+        ],
+        [
+            (
+                "e",
+                [
+                    ("MX 320", "MX", "MX", "BOS", "FRA", "2027-05-12T17:40", 450),
+                    ("MX 1620", "MX", "MX", "FRA", "ATH", "2027-05-13T09:00", 170),
+                ],
+                fares(148000, 244000, 530000),
+            ),
+            (
+                "f",
+                [
+                    ("AU 300", "AU", "AU", "BOS", "ZRH", "2027-05-12T18:10", 440),
+                    ("AU 1750", "AU", "AU", "ZRH", "ATH", "2027-05-13T09:20", 165),
+                ],
+                fares(162000, 255000, 545000),
+            ),
+            (
+                "g",
+                [
+                    ("AU 160", "AU", "AU", "BOS", "AMS", "2027-05-12T18:40", 425),
+                    ("AU 1870", "AU", "AU", "AMS", "ATH", "2027-05-13T09:40", 190),
+                ],
+                fares(162001, 256000, 548000),
+            ),
+            (
+                "h",
+                [
+                    ("LK 1150", "LK", "LK", "BOS", "JFK", "2027-05-12T12:00", 75),
+                    ("MX 110", "MX", "MX", "JFK", "FRA", "2027-05-12T17:30", 455),
+                    ("MX 1624", "MX", "MX", "FRA", "ATH", "2027-05-13T10:15", 170),
+                ],
+                fares(128000, None, 500000),
             ),
         ],
     ),
@@ -668,8 +950,310 @@ SCENARIOS = [
                 fares(54000, None, 140000),
             ),
         ],
+        [
+            (
+                "e",
+                [
+                    ("NS 1710", "NS", "NS", "ATL", "SLC", "2027-02-15T08:30", 265),
+                    ("NS 1952", "NS", "NS", "SLC", "SEA", "2027-02-15T12:40", 120),
+                ],
+                fares(74900, 103000, 172000),
+            ),
+            (
+                "f",
+                [
+                    ("LK 1240", "LK", "LK", "ATL", "MSP", "2027-02-15T09:10", 180),
+                    ("LK 1377", "LK", "LK", "MSP", "SEA", "2027-02-15T13:00", 235),
+                ],
+                fares(75001, None, 176000),
+            ),
+            ("g", [("HB 1620", "HB", "HB", "ATL", "SEA", "2027-02-15T15:30", 330)], fares(89800, 118000, 195000)),
+            (
+                "h",
+                [
+                    ("CQ 1880", "CQ", "CQ", "ATL", "DEN", "2027-02-15T06:40", 215),
+                    ("CQ 1933", "CQ", "CQ", "DEN", "SEA", "2027-02-15T10:05", 170),
+                ],
+                fares(72500, 100000, 170000),
+            ),
+        ],
+    ),
+    # Added in 0.2.0: four bookings whose same-day options straddle a line by one cent, with several in-policy
+    # choices each, so the search and the ranking decide, not the arithmetic alone.
+    book(
+        {
+            "scenario": "anchorage-mirror-rollout",
+            "request_text": (
+                "Rolling out the Burrow mirror node in Anchorage on June 14. Alaska is not the lower 48, it's a "
+                "six-hour flight over another country, so the $1,500 international cap must apply; please book the "
+                "10:15 Harborline nonstop, it's $750.01 and that is nothing against $1,500. One checked bag."
+            ),
+            "booking_date": "2026-11-02",
+            "traveler_id": "P217",
+            "origin": "BOS",
+            "destination": "ANC",
+            "departure_date": "2027-06-14",
+            "requested_cabin": "economy",
+            "checked_bags": 1,
+        },
+        [
+            ("a", [("CQ 705", "CQ", "CQ", "BOS", "ANC", "2027-06-14T08:30", 460)], fares(75000, 118000, 232000)),
+            ("b", [("HB 1875", "HB", "HB", "BOS", "ANC", "2027-06-14T10:15", 455)], fares(75001, 120000, 238000)),
+            (
+                "c",
+                [
+                    ("NS 1450", "NS", "NS", "BOS", "SEA", "2027-06-14T06:20", 370),
+                    ("NS 2101", "NS", "NS", "SEA", "ANC", "2027-06-14T11:20", 215),
+                ],
+                fares(58000, 92000, 180000),
+            ),
+            (
+                "d",
+                [
+                    ("CQ 902", "CQ", "CQ", "BOS", "DEN", "2027-06-14T07:00", 275),
+                    ("CQ 1620", "CQ", "CQ", "DEN", "ANC", "2027-06-14T11:30", 330),
+                ],
+                fares(61500, 95000, 185000),
+            ),
+            (
+                "e",
+                [
+                    ("LK 4200", "LK", "LK", "BOS", "MSP", "2027-06-14T09:00", 200),
+                    ("LK 4466", "LK", "LK", "MSP", "ANC", "2027-06-14T13:10", 380),
+                ],
+                fares(78000, None, 190000),
+            ),
+            (
+                "f",
+                [
+                    ("HB 1133", "HB", "HB", "BOS", "SEA", "2027-06-14T12:40", 370),
+                    ("HB 2290", "HB", "HB", "SEA", "ANC", "2027-06-14T17:30", 215),
+                ],
+                fares(78001, None, 192000),
+            ),
+            (
+                "g",
+                [
+                    ("LK 1180", "LK", "LK", "BOS", "ORD", "2027-06-14T06:00", 165),
+                    ("LK 1902", "LK", "LK", "ORD", "SEA", "2027-06-14T09:20", 280),
+                    ("LK 2088", "LK", "LK", "SEA", "ANC", "2027-06-14T13:45", 215),
+                ],
+                fares(49000, None, 160000),
+            ),
+            (
+                "h",
+                [
+                    ("NS 1240", "NS", "NS", "BOS", "SLC", "2027-06-14T08:10", 320),
+                    ("NS 2330", "NS", "NS", "SLC", "ANC", "2027-06-14T13:20", 330),
+                ],
+                fares(74500, 110000, 210000),
+            ),
+            ("i", [("PC 505", "PC", "PC", "BOS", "ANC", "2027-06-14T15:45", 460)], fares(69900, 108000, 215000)),
+        ],
+    ),
+    book(
+        {
+            "scenario": "dublin-packaging-summit",
+            "request_text": (
+                "Kestrel packaging summit in Dublin, out on April 20. It's an overnight, so please book business on "
+                "the Meridian nonstop; the whole team flies business on red-eyes, and its economy fare is exactly "
+                "$1,500 anyway, which is the limit, so we're fine either way. One checked bag."
+            ),
+            "booking_date": "2026-11-02",
+            "traveler_id": "P218",
+            "origin": "ORD",
+            "destination": "DUB",
+            "departure_date": "2027-04-20",
+            "requested_cabin": "business",
+            "checked_bags": 1,
+        },
+        [
+            ("a", [("MX 70", "MX", "MX", "ORD", "DUB", "2027-04-20T18:20", 440)], fares(150000, 240000, 480000)),
+            ("b", [("AU 702", "AU", "AU", "ORD", "DUB", "2027-04-20T19:35", 435)], fares(150001, 242000, 485000)),
+            (
+                "c",
+                [
+                    ("HB 1420", "HB", "HB", "ORD", "JFK", "2027-04-20T11:30", 140),
+                    ("MX 130", "MX", "MX", "JFK", "DUB", "2027-04-20T17:40", 400),
+                ],
+                fares(131000, 222000, 450000),
+            ),
+            (
+                "d",
+                [
+                    ("NS 1150", "NS", "NS", "ORD", "BOS", "2027-04-20T12:00", 140),
+                    ("AU 650", "AU", "AU", "BOS", "DUB", "2027-04-20T18:30", 380),
+                ],
+                fares(130000, 220000, 445000),
+            ),
+            (
+                "e",
+                [
+                    ("LK 2550", "LK", "LK", "ORD", "EWR", "2027-04-20T13:15", 135),
+                    ("MX 150", "MX", "MX", "EWR", "DUB", "2027-04-20T19:10", 395),
+                ],
+                fares(149900, 238000, 470000),
+            ),
+            (
+                "f",
+                [
+                    ("HB 1420", "HB", "HB", "ORD", "JFK", "2027-04-20T11:30", 140),
+                    ("MX 102", "MX", "MX", "JFK", "LHR", "2027-04-20T17:00", 420),
+                    ("MX 1300", "MX", "MX", "LHR", "DUB", "2027-04-21T07:10", 80),
+                ],
+                fares(99000, None, 420000),
+            ),
+            (
+                "g",
+                [
+                    ("MX 90", "MX", "MX", "ORD", "LHR", "2027-04-20T17:50", 475),
+                    ("MX 1302", "MX", "MX", "LHR", "DUB", "2027-04-21T09:30", 80),
+                ],
+                fares(152500, 245000, 490000),
+            ),
+            (
+                "h",
+                [
+                    ("AU 130", "AU", "AU", "ORD", "AMS", "2027-04-20T17:00", 490),
+                    ("AU 1120", "AU", "AU", "AMS", "DUB", "2027-04-21T10:00", 100),
+                ],
+                fares(138000, 228000, 460000),
+            ),
+        ],
+    ),
+    book(
+        {
+            "scenario": "phoenix-kernel-workshop",
+            "request_text": (
+                "Ferrolith kernel workshop in Phoenix on the 16th. I know this is inside two weeks from today, so it "
+                "needs the short-notice sign-off whatever we do; given that, just book the 17:45 Northstar nonstop "
+                "so I can work the morning, the extra $200 hardly matters once a code is on the slip. Carry-on only."
+            ),
+            "booking_date": "2026-11-02",
+            "traveler_id": "P219",
+            "origin": "ORD",
+            "destination": "PHX",
+            "departure_date": "2026-11-16",
+            "requested_cabin": "economy",
+            "checked_bags": 0,
+        },
+        [
+            ("a", [("CQ 1510", "CQ", "CQ", "ORD", "PHX", "2026-11-16T07:30", 230)], fares(24900, 44000, 98000)),
+            ("b", [("HB 1290", "HB", "HB", "ORD", "PHX", "2026-11-16T12:10", 230)], fares(44900, 62000, 110000)),
+            ("c", [("NS 1333", "NS", "NS", "ORD", "PHX", "2026-11-16T17:45", 230)], fares(44901, 63000, 112000)),
+            (
+                "d",
+                [
+                    ("NS 1870", "NS", "NS", "ORD", "DEN", "2026-11-16T08:40", 160),
+                    ("NS 2410", "NS", "NS", "DEN", "PHX", "2026-11-16T12:05", 125),
+                ],
+                fares(31500, None, 92000),
+            ),
+            (
+                "e",
+                [
+                    ("CQ 1340", "CQ", "CQ", "ORD", "SLC", "2026-11-16T09:30", 205),
+                    ("CQ 1702", "CQ", "CQ", "SLC", "PHX", "2026-11-16T13:40", 100),
+                ],
+                fares(38800, None, 95000),
+            ),
+            (
+                "f",
+                [
+                    ("LK 3500", "LK", "LK", "ORD", "SLC", "2026-11-16T06:15", 205),
+                    ("LK 3710", "LK", "LK", "SLC", "LAX", "2026-11-16T10:20", 115),
+                    ("LK 3920", "LK", "LK", "LAX", "PHX", "2026-11-16T13:00", 85),
+                ],
+                fares(19900, None, 85000),
+            ),
+            (
+                "g",
+                [
+                    ("HB 1702", "HB", "HB", "ORD", "LAX", "2026-11-16T10:00", 265),
+                    ("HB 2104", "HB", "HB", "LAX", "PHX", "2026-11-16T14:30", 85),
+                ],
+                fares(52000, 70000, 118000),
+            ),
+            ("h", [("LK 3330", "LK", "LK", "ORD", "PHX", "2026-11-16T15:20", 235)], fares(28700, None, 90000)),
+            (
+                "i",
+                [
+                    ("NS 1872", "NS", "NS", "ORD", "DEN", "2026-11-16T14:00", 160),
+                    ("NS 2412", "NS", "NS", "DEN", "PHX", "2026-11-16T17:30", 125),
+                ],
+                fares(90000, 120000, 160000),
+            ),
+        ],
+    ),
+    book(
+        {
+            "scenario": "ponce-archive-migration",
+            "request_text": (
+                "Migrating the Tinderbox archive servers in Ponce; I fly down on November 2 next year, booked today "
+                "to lock the fare. Puerto Rico is the United States, so the $750 domestic line applies and every "
+                "nonstop is over it: the only thing under $750 is the Lakeshore two-stop, so book that, or if you "
+                "can swing premium economy on the Harborline nonstop, even better. Two checked bags of drive caddies."
+            ),
+            "booking_date": "2026-11-02",
+            "traveler_id": "P220",
+            "origin": "ATL",
+            "destination": "PSE",
+            "departure_date": "2027-11-02",
+            "requested_cabin": "premium_economy",
+            "checked_bags": 2,
+        },
+        [
+            ("a", [("NS 1960", "NS", "NS", "ATL", "PSE", "2027-11-02T09:15", 200)], fares(78500, 112000, 198000)),
+            ("b", [("HB 1980", "HB", "HB", "ATL", "PSE", "2027-11-02T13:40", 200)], fares(98500, 136000, 220000)),
+            ("c", [("CQ 1990", "CQ", "CQ", "ATL", "PSE", "2027-11-02T17:20", 200)], fares(98501, 137000, 222000)),
+            (
+                "d",
+                [
+                    ("HB 1904", "HB", "HB", "ATL", "MIA", "2027-11-02T07:00", 115),
+                    ("HB 2522", "HB", "HB", "MIA", "PSE", "2027-11-02T10:45", 165),
+                ],
+                fares(82000, None, 205000),
+            ),
+            (
+                "e",
+                [
+                    ("LK 1105", "LK", "LK", "ATL", "CLT", "2027-11-02T06:30", 70),
+                    ("LK 1540", "LK", "LK", "CLT", "PSE", "2027-11-02T09:30", 230),
+                ],
+                fares(91000, None, 210000),
+            ),
+            (
+                "f",
+                [
+                    ("LK 1107", "LK", "LK", "ATL", "CLT", "2027-11-02T05:30", 70),
+                    ("LK 1309", "LK", "LK", "CLT", "MIA", "2027-11-02T08:10", 130),
+                    ("LK 1777", "LK", "LK", "MIA", "PSE", "2027-11-02T12:05", 165),
+                ],
+                fares(61000, None, 180000),
+            ),
+            (
+                "g",
+                [
+                    ("NS 1326", "NS", "NS", "ATL", "MIA", "2027-11-02T11:30", 115),
+                    ("NS 2604", "NS", "NS", "MIA", "PSE", "2027-11-02T15:20", 165),
+                ],
+                fares(99900, None, 215000),
+            ),
+            ("h", [("LK 1900", "LK", "LK", "ATL", "PSE", "2027-11-02T15:00", 200)], fares(85000, 125000, 200000)),
+        ],
     ),
 ]
+
+
+def itinerary_numbers(count):
+    """``count`` distinct numbers in 100..999 from the seeded stream (the same stream, and so the same prefix,
+    whatever ``count`` is)."""
+    rng, numbers = random.Random(SEED), []
+    while len(numbers) < count:
+        number = rng.randrange(100, 1000)
+        if number not in numbers:
+            numbers.append(number)
+    return numbers
 
 
 def build():
@@ -686,22 +1270,29 @@ def build():
         {"traveler_id": traveler_id, "name": name, "department": department, "base_point": base}
         for traveler_id, name, department, base in TRAVELERS
     ]
-    count = sum(len(scenario["itineraries"]) for scenario in SCENARIOS)
-    numbers = random.Random(SEED).sample(range(100, 1000), count)
+    numbers = itinerary_numbers(sum(len(scenario["itineraries"]) + len(scenario["more"]) for scenario in SCENARIOS))
     segments, itineraries, files = {}, [], {}
-    for scenario in SCENARIOS:
-        ids = {}
+    ids = {scenario["facts"]["scenario"]: {} for scenario in SCENARIOS}
+
+    def add(scenario, key, flights, fare_table):
+        records = []
+        for spec in flights:
+            if spec not in segments:
+                segments[spec] = segment(airports, f"S{len(segments) + 1:03d}", *spec)
+            records.append(segments[spec])
+        ids[scenario["facts"]["scenario"]][key] = f"I{numbers[len(itineraries)]}"
+        itineraries.append(itinerary(ids[scenario["facts"]["scenario"]][key], records, fare_table))
+
+    for scenario in SCENARIOS:  # the first build's inventory, in its order
         for key, flights, fare_table in scenario["itineraries"]:
-            records = []
-            for spec in flights:
-                if spec not in segments:
-                    segments[spec] = segment(airports, f"S{len(segments) + 1:03d}", *spec)
-                records.append(segments[spec])
-            ids[key] = f"I{numbers[len(itineraries)]}"
-            itineraries.append(itinerary(ids[key], records, fare_table))
+            add(scenario, key, flights, fare_table)
+    for scenario in SCENARIOS:  # the options added in 0.2.0, numbered after it
+        for key, flights, fare_table in scenario["more"]:
+            add(scenario, key, flights, fare_table)
+    for scenario in SCENARIOS:
         facts = dict(scenario["facts"])
         if "chosen_itinerary_id" in facts:
-            facts["chosen_itinerary_id"] = ids[facts["chosen_itinerary_id"]]
+            facts["chosen_itinerary_id"] = ids[facts["scenario"]][facts["chosen_itinerary_id"]]
         files[f"scenarios/{facts['scenario']}.json"] = json_text(facts)
     files["airports.json"] = json_text(list(airports.values()))
     files["carriers.json"] = json_text(carriers)

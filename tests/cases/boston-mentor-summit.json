@@ -1,14 +1,19 @@
 {
  "scenario": "boston-mentor-summit",
  "task": "sfc-book",
- "note": "Three valid: I328 (31000, the lowest logical fare), I577 (45500), I658 (51000, band exactly 20000). I158 (51001) is one cent over the band; I662 (24500) has 2 connections; I749 flies on Dec 1.",
+ "note": "Five valid: I328 (31000, the lowest logical fare), I874 (38500), I577 (45500), I825 (49900) and I658 (51000, band exactly 20000). I158 (51001) is one cent over the band and I123 (55000) further; I662 (24500) has 2 connections; I749 flies on Dec 1.",
  "expected_valid_set": [
   "I328",
   "I577",
-  "I658"
+  "I658",
+  "I825",
+  "I874"
  ],
  "expected_lowest_logical_fare_cents": 31000,
  "expected_rejected": {
+  "I123": [
+   "ABOVE_LOW_FARE_BAND_200"
+  ],
   "I158": [
    "ABOVE_LOW_FARE_BAND_200"
   ],
@@ -20,6 +25,9 @@
   "in_policy": true,
   "required_preauthorizations": [],
   "itinerary_id": "I328",
+  "fare_cents": 31000,
+  "lowest_logical_fare_cents": 31000,
+  "advance_days": 30,
   "reimbursable_checked_bags": "one"
  },
  "broken": [
@@ -64,6 +72,14 @@
     "in_policy": false
    },
    "reason": "in-policy-matches-preauths"
+  },
+  {
+   "why": "reports the premium economy fare of the booked itinerary",
+   "change": {
+    "fare_cents": 52000
+   },
+   "reason": "fare-correct"
   }
- ]
+ ],
+ "expected_advance_days": 30
 }

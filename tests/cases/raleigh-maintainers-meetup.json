@@ -8,6 +8,9 @@
    "TWO_PLUS_CONNECTIONS"
   ],
   "itinerary_id": null,
+  "fare_cents": 21900,
+  "lowest_logical_fare_cents": 28400,
+  "advance_days": 35,
   "reimbursable_checked_bags": "one"
  },
  "broken": [
@@ -29,6 +32,13 @@
     ]
    },
    "reason": "preauths-correct"
+  },
+  {
+   "why": "lets the 2-connection 21900 set the lowest logical fare",
+   "change": {
+    "lowest_logical_fare_cents": 21900
+   },
+   "reason": "lowest-logical-fare-correct"
   }
  ]
 }

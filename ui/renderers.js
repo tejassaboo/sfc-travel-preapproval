@@ -1,4 +1,5 @@
-// A pre-approval slip for each SfcOutput: stamped IN POLICY or ROUTE FOR SIGN-OFF, with each code as a line.
+// A pre-approval slip for each SfcOutput: stamped IN POLICY or ROUTE FOR SIGN-OFF, with the fare judged, the lowest
+// logical fare and the band, the days booked ahead, the bag allowance, and each code as a line.
 import { h, statusPill } from "./kit/components.js";
 
 const CODE_TEXT = {
@@ -10,6 +11,13 @@ const CODE_TEXT = {
   NON_ECONOMY_CABIN: "Cabin above economy",
   TWO_PLUS_CONNECTIONS: "Two or more connections",
 };
+
+// USD cents as "$1,234.56"; with sign, a difference such as "+$200.01" or "-$35.00".
+function dollars(cents, signed = false) {
+  const sign = cents < 0 ? "-" : signed ? "+" : "";
+  const whole = Math.trunc(Math.abs(cents) / 100).toLocaleString("en-US");
+  return `${sign}$${whole}.${String(Math.abs(cents) % 100).padStart(2, "0")}`;
+}
 
 function slip(output) {
   const codes = output.required_preauthorizations;
@@ -23,6 +31,12 @@ function slip(output) {
       { class: "slip-fields" },
       h("dt", { text: "Itinerary" }),
       h("dd", { class: "numeric", text: output.itinerary_id ?? "(audit: nothing booked)" }),
+      h("dt", { text: "Fare judged" }),
+      h("dd", { class: "numeric", text: dollars(output.fare_cents) }),
+      h("dt", { text: "Lowest logical fare" }),
+      h("dd", { class: "numeric", text: `${dollars(output.lowest_logical_fare_cents)} (${dollars(output.fare_cents - output.lowest_logical_fare_cents, true)} band)` }),
+      h("dt", { text: "Booked ahead" }),
+      h("dd", { class: "numeric", text: `${output.advance_days} days` }),
       h("dt", { text: "Reimbursable checked bags" }),
       h("dd", { text: output.reimbursable_checked_bags }),
     ),

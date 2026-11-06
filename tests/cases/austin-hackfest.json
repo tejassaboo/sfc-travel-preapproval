@@ -8,6 +8,9 @@
    "BOOKED_LT_14_DAYS"
   ],
   "itinerary_id": null,
+  "fare_cents": 38900,
+  "lowest_logical_fare_cents": 33100,
+  "advance_days": 13,
   "reimbursable_checked_bags": "one"
  },
  "broken": [
